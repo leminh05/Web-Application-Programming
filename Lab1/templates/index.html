@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ student_name }} Information Form</title> <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>{{ student_name }} Information Form</h2> <form action="{{ url_for('submit_info') }}" method="post">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username"><br><br>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password"><br><br>
+
+            <label>Gender:</label><br>
+            <input type="radio" id="male" name="gender" value="male">
+            <label for="male">Male</label><br>
+            <input type="radio" id="female" name="gender" value="female">
+            <label for="female">Female</label><br>
+            <input type="radio" id="other" name="gender" value="other">
+            <label for="other">Other</label><br><br>
+
+            <label for="membership">Membership Level:</label>
+            <select id="membership" name="membership">
+                <option value="Bac">Thành viên Bạc</option>
+                <option value="Vang">Thành viên Vàng</option>
+                <option value="KimCuong">Thành viên Kim Cương</option>
+            </select><br><br>
+
+            <label for="favcolor">Choose your favorite color:</label>
+            <input type="color" id="favcolor" name="favcolor" value="#007bff"><br><br> <input type="checkbox" id="correct" name="correct" value="correct">
+            <label for="correct">Correct</label><br><br>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>
