@@ -1,0 +1,79 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+    margin: 0;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+.heart-container {
+    position: relative;
+    display: flex; /* Dùng flexbox để căn giữa trái tim và tin nhắn */
+    flex-direction: column; /* Xếp trái tim và tin nhắn theo chiều dọc */
+    align-items: center; /* Căn giữa theo chiều ngang */
+    opacity: 0; /* Ẩn ban đầu */
+    transform: scale(0.5); /* Nhỏ lại ban đầu */
+    animation: fadeInScale 2s forwards ease-out; /* Hiệu ứng xuất hiện */
+    animation-delay: 1s; /* Trễ 1 giây trước khi xuất hiện */
+}
+
+.heart {
+    position: relative;
+    width: 120px; /* Kích thước lớn hơn một chút */
+    height: 108px;
+    background-color: red;
+    transform: rotate(-45deg);
+    animation: pulse 1.5s infinite; /* Hiệu ứng nhịp đập */
+    margin-bottom: 20px; /* Khoảng cách giữa trái tim và tin nhắn */
+}
+
+.heart::before,
+.heart::after {
+    content: '';
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background-color: red;
+    border-radius: 50%;
+}
+
+.heart::before {
+    top: -60px;
+    left: 0;
+}
+
+.heart::after {
+    left: 60px;
+    top: 0;
+}
+
+.message {
+    color: #ff4d4d; /* Màu chữ */
+    font-size: 2.2em; /* Kích thước chữ */
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    /*animation: bounceIn 1s ease-out; /* Có thể thêm hiệu ứng bật */
+    /*animation-delay: 2.5s; /* Xuất hiện sau trái tim */
+}
+
+/* Keyframes cho hiệu ứng trái tim */
+@keyframes pulse {
+    0% { transform: rotate(-45deg) scale(1); }
+    50% { transform: rotate(-45deg) scale(1.1); }
+    100% { transform: rotate(-45deg) scale(1); }
+}
+
+/* Keyframes cho hiệu ứng xuất hiện của container */
+@keyframes fadeInScale {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
