@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SportSlot</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="header-left">
+                <h1 class="logo">SportSlot</h1>
+            </div>
+
+            <div class="header-right">
+    <div id="notification-bell" class="icon-wrapper">
+        <i class="fas fa-bell"></i>
+        <span class="notification-badge">3</span>
+        
+        <div id="notification-popup" class="notification-popup hidden">
+            <div class="popup-header">
+                <h3>Thông báo</h3>
+            </div>
+            <ul class="notification-list">
+                <li>
+                    <p class="notification-text"><strong>Nguyễn Văn A</strong> [Khách hàng]: Đã đặt sân <strong>Sân Cỏ 7A</strong></p>
+                    <a href="#" class="notification-link">Xem Chi tiết</a>
+                </li>
+                <li>
+                    <p class="notification-text"><strong>Trần Thị B</strong> [Khách hàng]: Đã đặt sân <strong>Sân Tennis 2</strong></p>
+                    <a href="#" class="notification-link">Xem Chi tiết</a>
+                </li>
+                <li>
+                    <p class="notification-text"><strong>Lê Văn C</strong> [Khách hàng]: Đã đặt sân <strong>Sân Cầu Lông 1</strong></p>
+                    <a href="#" class="notification-link">Xem Chi tiết</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <a href="profile.html" class="icon-wrapper" title="Trang cá nhân">
+    <i class="fas fa-user-circle"></i>
+</a>
+</div>
+        </header>
+
+        <main class="main-content">
+            <div class="main-content-header">
+                <button class="add-field-btn">Thêm sân</button>
+                <h2 class="section-title">Sân của bạn</h2>
+            </div>
+            <div class="fields-grid">
+    <div class="field-card"
+     data-name="Sân bóng đá Thống Nhất"
+     data-img-src="https://placehold.co/600x400/3498db/ffffff?text=Sân+Bóng+Đá"
+     data-description="Sân cỏ nhân tạo chất lượng cao, có đèn chiếu sáng ban đêm, phù hợp cho các trận đấu 7 người."
+     data-price="350,000"
+     data-bookings="25"
+     data-schedule='[
+        {"time": "08:00 - 09:00", "status": "booked"},
+        {"time": "09:00 - 10:00", "status": "available"},
+        {"time": "10:00 - 11:00", "status": "available"},
+        {"time": "16:00 - 17:00", "status": "booked"},
+        {"time": "17:00 - 18:00", "status": "booked"}
+     ]'>
+    
+    <img src="https://placehold.co/600x400/3498db/ffffff?text=Sân+Bóng+Đá" alt="Hình ảnh sân bóng đá" class="field-image">
+    <div class="field-info">
+        <h3 class="field-name">Sân bóng đá Thống Nhất</h3>
+        <p class="field-location">Quận 10, TP. Hồ Chí Minh</p>
+        <a href="#" class="detail-button">Xem chi tiết</a>
+    </div>
+</div>
+
+
+    <div class="field-card"
+     data-name="Sân tennis Lan Anh"
+     data-img-src="https://placehold.co/600x400/2ecc71/ffffff?text=Sân+Tennis"
+     data-description="Hệ thống 4 sân tennis đạt chuẩn quốc tế, mặt sân cứng, có mái che và đèn chiếu sáng tốt."
+     data-price="250,000"
+     data-bookings="42"
+     data-schedule='[
+        {"time": "07:00 - 08:00", "status": "booked"},
+        {"time": "08:00 - 09:00", "status": "available"},
+        {"time": "18:00 - 19:00", "status": "booked"},
+        {"time": "19:00 - 20:00", "status": "booked"}
+     ]'>
+    <img src="https://placehold.co/600x400/2ecc71/ffffff?text=Sân+Tennis" alt="Hình ảnh sân tennis" class="field-image">
+    <div class="field-info">
+        <h3 class="field-name">Sân tennis Lan Anh</h3>
+        <p class="field-location">Quận 3, TP. Hồ Chí Minh</p>
+        <a href="#" class="detail-button">Xem chi tiết</a>
+    </div>
+</div>
+
+<div class="field-card"
+     data-name="Sân cầu lông Tinh Võ"
+     data-img-src="https://placehold.co/600x400/e74c3c/ffffff?text=Sân+Cầu+Lông"
+     data-description="Sân cầu lông trong nhà với thảm thi đấu chuyên nghiệp, không gian thoáng đãng, phù hợp cho cả người mới chơi và vận động viên."
+     data-price="120,000"
+     data-bookings="88"
+     data-schedule='[
+        {"time": "17:00 - 18:00", "status": "available"},
+        {"time": "18:00 - 19:00", "status": "booked"},
+        {"time": "19:00 - 20:00", "status": "booked"},
+        {"time": "20:00 - 21:00", "status": "available"}
+     ]'>
+    <img src="https://placehold.co/600x400/e74c3c/ffffff?text=Sân+Cầu+Lông" alt="Hình ảnh sân cầu lông" class="field-image">
+    <div class="field-info">
+        <h3 class="field-name">Sân cầu lông Tinh Võ</h3>
+        <p class="field-location">Quận 5, TP. Hồ Chí Minh</p>
+        <a href="#" class="detail-button">Xem chi tiết</a>
+    </div>
+</div>
+
+<div class="field-card"
+     data-name="Sân bóng rổ Phú Thọ"
+     data-img-src="https://placehold.co/600x400/f1c40f/ffffff?text=Sân+Bóng+Rổ"
+     data-description="Sân bóng rổ ngoài trời, mặt sân xi măng phẳng, rổ đạt tiêu chuẩn. Nơi hội tụ của nhiều đội bóng phong trào."
+     data-price="150,000"
+     data-bookings="35"
+     data-schedule='[
+        {"time": "16:00 - 17:30", "status": "booked"},
+        {"time": "17:30 - 19:00", "status": "available"},
+        {"time": "19:00 - 20:30", "status": "booked"}
+     ]'>
+    <img src="https://placehold.co/600x400/f1c40f/ffffff?text=Sân+Bóng+Rổ" alt="Hình ảnh sân bóng rổ" class="field-image">
+    <div class="field-info">
+        <h3 class="field-name">Sân bóng rổ Phú Thọ</h3>
+        <p class="field-location">Quận 11, TP. Hồ Chí Minh</p>
+        <a href="#" class="detail-button">Xem chi tiết</a>
+    </div>
+</div>
+
+<div class="field-card"
+     data-name="Sân futsal trong nhà Tao Đàn"
+     data-img-src="https://placehold.co/600x400/9b59b6/ffffff?text=Sân+Futsal"
+     data-description="Sân futsal trong nhà, không bị ảnh hưởng bởi thời tiết. Mặt sân gỗ chuyên nghiệp, có khán đài nhỏ."
+     data-price="400,000"
+     data-bookings="19"
+     data-schedule='[
+        {"time": "18:00 - 19:00", "status": "booked"},
+        {"time": "19:00 - 20:00", "status": "booked"},
+        {"time": "20:00 - 21:00", "status": "available"}
+     ]'>
+    <img src="https://placehold.co/600x400/9b59b6/ffffff?text=Sân+Futsal" alt="Hình ảnh sân futsal" class="field-image">
+    <div class="field-info">
+        <h3 class="field-name">Sân futsal trong nhà Tao Đàn</h3>
+        <p class="field-location">Quận 1, TP. Hồ Chí Minh</p>
+        <a href="#" class="detail-button">Xem chi tiết</a>
+    </div>
+</div>
+
+<div class="field-card"
+     data-name="Sân đa năng Rạch Miễu"
+     data-img-src="https://placehold.co/600x400/1abc9c/ffffff?text=Sân+Đa+Năng"
+     data-description="Sân tập luyện đa năng, có thể chơi được bóng chuyền, bóng rổ, cầu lông. Giá thuê linh hoạt."
+     data-price="200,000"
+     data-bookings="51"
+     data-schedule='[
+        {"time": "08:00 - 09:30", "status": "available"},
+        {"time": "09:30 - 11:00", "status": "available"},
+        {"time": "17:00 - 18:30", "status": "booked"}
+     ]'>
+    <img src="https://placehold.co/600x400/1abc9c/ffffff?text=Sân+Đa+Năng" alt="Hình ảnh sân đa năng" class="field-image">
+    <div class="field-info">
+        <h3 class="field-name">Sân đa năng Rạch Miễu</h3>
+        <p class="field-location">Quận Phú Nhuận, TP. Hồ Chí Minh</p>
+        <a href="#" class="detail-button">Xem chi tiết</a>
+    </div>
+</div>
+        </main>
+    </div>
+    <div id="add-field-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+        <button id="close-modal-btn" class="close-btn">&times;</button>
+        <h2>Thêm sân</h2>
+        <form id="add-field-form" class="form-container">
+            <div class="form-body">
+                <div class="form-column form-left">
+                    <div class="image-upload-placeholder">
+                        <span>IMG</span>
+                    </div>
+                    <button type="button" class="add-image-btn">Thêm ảnh</button>
+                </div>
+
+                <div class="form-column form-right">
+                    <div class="form-group">
+                        <label for="field-name">Tên sân:</label>
+                        <input type="text" id="field-name" name="fieldName">
+                    </div>
+                    <div class="form-group">
+                        <label for="field-sport">Môn:</label>
+                        <select id="field-sport" name="fieldSport">
+                            <option value="bongda">Bóng đá</option>
+                            <option value="caulong">Cầu lông</option>
+                            <option value="tennis">Tennis</option>
+                            <option value="bongro">Bóng rổ</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="field-type">Loại:</label>
+                        <select id="field-type" name="fieldType">
+                            <option value="san5">Sân 5</option>
+                            <option value="san7">Sân 7</option>
+                            <option value="san11">Ngoài Trời</option>
+                            <option value="trongnha">Trong nhà</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="field-price">Giá:</label>
+                        <div class="price-input">
+                            <input type="number" id="field-price" name="fieldPrice" placeholder="ví dụ: 300000">
+                            <span>VND</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="field-description">Mô tả sân:</label>
+                <textarea id="field-description" name="fieldDescription" rows="4"></textarea>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Đăng</button>
+                <button type="button" class="btn btn-secondary">Lưu nháp</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div id="field-detail-modal" class="modal-overlay hidden">
+    <div class="modal-content detail-modal-content">
+        <button id="close-detail-modal-btn" class="close-btn">&times;</button>
+        <div class="detail-modal-body">
+            <div class="detail-col-left">
+                <img id="modal-detail-image" src="" alt="Hình ảnh chi tiết sân" class="modal-main-image">
+                <h2 id="modal-detail-name"></h2>
+                <p id="modal-detail-description"></p>
+                <div class="info-line"><strong>Số lượt đặt:</strong> <span id="modal-detail-bookings"></span></div>
+                <div class="info-line"><strong>Giá:</strong> <span id="modal-detail-price" class="price-highlight"></span></div>
+            </div>
+            <div class="detail-col-right">
+                <h3>Lịch đặt sân</h3>
+                <ul id="modal-detail-schedule-list" class="schedule-list"></ul>
+                <div class="schedule-legend">
+                    <span class="legend-item available">Lịch trống</span>
+                    <span class="legend-item booked">Đã đặt</span>
+                </div>
+            </div>
+            <div class="detail-modal-actions">
+    <button id="edit-field-btn" class="btn btn-secondary">Sửa</button>
+    <button class="btn btn-danger">Xoá</button>
+</div>
+
+        </div>
+    </div>
+</div>
+<div id="edit-field-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+        <button id="close-edit-modal-btn" class="close-btn">&times;</button>
+        <h2>Chỉnh sửa thông tin sân</h2>
+        <form id="edit-field-form" class="form-container">
+            <div class="form-group">
+                <label>Đổi hình:</label>
+                <div class="image-upload-placeholder small">
+                    <img id="edit-image-preview" src="" alt="Ảnh sân xem trước">
+                </div>
+                <input type="file" id="edit-image-input" class="image-input">
+            </div>
+
+            <div class="form-group">
+                <label for="edit-field-name">Tên sân:</label>
+                <input type="text" id="edit-field-name" name="fieldName">
+            </div>
+            <div class="form-group">
+                <label for="edit-field-status">Trạng Thái:</label>
+                <select id="edit-field-status" name="fieldStatus">
+                    <option value="active">Hoạt động</option>
+                    <option value="maintenance">Bảo trì</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="edit-field-description">Mô tả:</label>
+                <textarea id="edit-field-description" name="fieldDescription" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="edit-field-price">Giá:</label>
+                <div class="price-input">
+                    <input type="number" id="edit-field-price" name="fieldPrice">
+                    <span>VND</span>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Cập nhật</button>
+                <button type="button" id="cancel-edit-btn" class="btn btn-secondary">Hủy</button>
+            </div>
+        </form>
+    </div>
+</div>
+    <script src="script.js"></script>
+</body>
+</html>

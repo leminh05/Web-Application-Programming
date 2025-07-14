@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management</title>
+</head>
+<body>
+    <h1>Task List</h1>
+    <form action="/add_task" method="post">
+        <label for="task">New Task:</label>
+        <input type="text" id="task" name="task" required>
+        <button type="submit">Add Task</button>
+    </form>
+
+    <h2>Tasks List</h2>
+    <ul>
+        {% for task in tasks %}
+            <li>{{ task }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

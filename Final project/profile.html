@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin cá nhân - SportSlot</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="profile-page-container">
+        <header class="dashboard-header">
+            <div class="header-left">
+                <a href="index.html" class="logo-link"><h1 class="logo">SportSlot</h1></a>
+            </div>
+            <div class="header-right">
+                <a href="profile.html" class="icon-wrapper"><i class="fas fa-user-circle"></i></a>
+            </div>
+        </header>
+
+        <main class="profile-main-content">
+            <aside class="profile-sidebar">
+                <nav>
+                    <ul class="sidebar-menu">
+                        <li><a href="#" class="sidebar-link active" data-target="info-section">Thông tin cá nhân</a></li>
+                        <li><a href="#" class="sidebar-link" data-target="revenue-section">Doanh thu</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <div class="profile-content-area">
+                <section id="info-section" class="content-section active">
+                    <h2>Thông tin cá nhân</h2>
+                    <form class="info-form">
+                        <div class="form-group">
+                            <label>Tên:</label>
+                            <input type="text" value="Chủ Sân ABC" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>SĐT:</label>
+                            <input type="text" value="0909123456" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Email:</label>
+                            <input type="email" value="chusana@example.com" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Địa chỉ:</label>
+                            <input type="text" value="123 Đường XYZ, Quận 1, TP.HCM" readonly>
+                        </div>
+                        <hr>
+                        <div class="form-group inline">
+                            <label>Số sân:</label>
+                            <span>5</span>
+                        </div>
+                        <div class="form-group inline">
+                            <label>Tổng doanh thu:</label>
+                            <span class="revenue-total">50,000,000 VND</span>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-primary">Sửa thông tin</button>
+                        </div>
+                    </form>
+                </section>
+
+                <section id="revenue-section" class="content-section">
+                    <div class="revenue-header">
+                         <h2>Doanh thu</h2>
+                         <div class="revenue-filters">
+                             <input type="date" title="Từ ngày">
+                             <input type="date" title="Đến ngày">
+                             <select>
+                                 <option value="">Tất cả hình thức</option>
+                                 <option value="cash">Tiền mặt</option>
+                                 <option value="banking">Chuyển khoản</option>
+                             </select>
+                             <button class="btn btn-secondary">Lọc</button>
+                         </div>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID Giao dịch</th>
+                                    <th>Tên sân</th>
+                                    <th>Giá</th>
+                                    <th>Hình thức</th>
+                                    <th>Ngày</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#12345</td>
+                                    <td>Sân Cỏ 7A</td>
+                                    <td>350,000</td>
+                                    <td>Chuyển khoản</td>
+                                    <td>20/06/2025</td>
+                                </tr>
+                                <tr>
+                                    <td>#12344</td>
+                                    <td>Sân Tennis 2</td>
+                                    <td>250,000</td>
+                                    <td>Tiền mặt</td>
+                                    <td>19/06/2025</td>
+                                </tr>
+                                 </tbody>
+                        </table>
+                    </div>
+                    <div class="revenue-summary">
+                        <strong>Tổng:</strong> <span>600,000 VND</span>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+    <script src="profile.js"></script>
+</body>
+</html>
