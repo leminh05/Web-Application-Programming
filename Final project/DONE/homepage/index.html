@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website With Login & Registration | Sport Slot</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body>
+    <header>
+        <h2 class="logo">Sport Slot</h2>
+        <nav class="navigation">
+            <a href="#" id="home-link">Home</a>
+            <a href="#" id="courtlist-link">Court List</a>
+            <a href="#" id="service-link">Service</a>
+            <a href="#" id="contact-link">Contact</a>
+            <button class="btnLogin-popup">Login</button>
+        </nav>
+    </header>
+
+    <div id="dashboard-content" class="dashboard-hidden"> 
+        <div class="main-content-section">
+            <div class="green-box">
+                Khung giảm giá
+            </div>
+
+            <div class="selection-bar">
+                <div class="selection-item" id="sport-selection-item">
+                    Chọn môn thể thao <span class="arrow-down"></span>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-item" data-value="Bóng đá">Sân bóng đá</div>
+                        <div class="dropdown-item" data-value="Bóng chuyền">Sân bóng chuyền</div>
+                        <div class="dropdown-item" data-value="Bóng rổ">Sân bóng rổ</div>
+                    </div>
+                </div>
+
+                <div class="selection-item" id="date-selection-item">
+                    Ngày đặt <span class="arrow-down" id="date-arrow-down"></span>
+                    <input type="text" id="date-picker-input" readonly> </div>
+
+                <div class="selection-item" id="time-selection-item">
+                    Giờ đặt <span class="arrow-down" id="time-arrow-down"></span>
+                    <input type="text" id="time-picker-input" readonly> </div>
+
+                <div class="selection-arrow-right"></div>
+            </div>
+        </div>
+
+        <div class="available-courts-section" id="available-courts-section"> <div class="available-courts-header">
+                <h3 class="section-title">Danh sách sân trống</h3>
+                <span class="refresh-icon">
+                    <ion-icon name="sync-outline"></ion-icon>
+                </span>
+            </div>
+            <div class="court-cards-container">
+                </div>
+        </div>
+    </div>
+    <div class="wrapper">
+        <span class="icon-close">
+            <ion-icon name="close-outline"></ion-icon>
+        </span>
+        <div class="form-box login">
+            <h2>Login</h2>
+            <form action="#">
+                <div class="input-box">
+                    <span class="icon">
+                        <ion-icon name="mail-open-outline"></ion-icon>
+                    </span>
+                    <input type="email" id="loginEmail" required>
+                    <label for="loginEmail">Email</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon">
+                        <ion-icon name="lock-closed-outline"></ion-icon>
+                    </span>
+                    <input type="password" id="loginPassword" required>
+                    <label for="loginPassword">Password</label>
+                </div>
+                <div class="remember-forgot">
+                    <label>
+                        <input type="checkbox"> Remember me
+                    </label>
+                    <a href="#">Forgot Password?</a>
+                </div>
+                <button type="submit" class="btn">Login</button>
+                <div class="login-register">
+                    <p>Don't have an account?
+                        <a href="#" class="register-link">Register</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+
+        <div class="form-box register">
+            <h2>Registration</h2>
+            <form action="#">
+                <div class="registration-form-content">
+                    <div class="account-details-column">
+                        <div class="input-group">
+                            <label for="registerUsername">Tài khoản</label>
+                            <input type="text" id="registerUsername" name="username" placeholder="Tên tài khoản" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="registerPassword">Mật khẩu</label>
+                            <input type="password" id="registerPassword" name="password" placeholder="Mật khẩu" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="registerPhone">Số điện thoại</label>
+                            <input type="tel" id="registerPhone" name="phone" placeholder="Số điện thoại" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="registerEmail">Email</label>
+                            <input type="email" id="registerEmail" name="email" placeholder="Địa chỉ Email" required>
+                        </div>
+                        <div class="remember-forgot checkbox-row">
+                            <label>
+                                <input type="checkbox" id="terms-conditions" required> Tôi đồng ý với các điều khoản
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="vertical-divider"></div>
+
+                    <div class="role-selection-column">
+                        <div class="role-image-panel">
+                            <img src="image/role_selection_banner.jpg" alt="Chọn loại tài khoản" class="role-panel-image">
+                        </div>
+                        <p class="role-selection-title">Loại tài khoản</p>
+                        <button type="button" class="role-button" data-role="customer">Khách hàng</button>
+                        <button type="button" class="role-button" data-role="owner">Chủ sân</button>
+                        <button type="submit" class="btn register-submit-btn">Đăng ký</button>
+                    </div>
+                </div>
+                <div class="login-register-bottom">
+                    <p>Đã có tài khoản?
+                        <a href="#" class="login-link">Đăng nhập</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

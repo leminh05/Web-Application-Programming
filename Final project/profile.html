@@ -8,28 +8,29 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="profile-page-container">
-        <header class="dashboard-header">
-            <div class="header-left">
-                <a href="index.html" class="logo-link"><h1 class="logo">SportSlot</h1></a>
-            </div>
-            <div class="header-right">
-                <a href="profile.html" class="icon-wrapper"><i class="fas fa-user-circle"></i></a>
-            </div>
-        </header>
 
+    <header class="dashboard-header" style="position: fixed; top: 20px; z-index: 100;">
+        <div class="header-left">
+            <a href="Dashboard.html" class="logo-link"><h1 class="logo">SportSlot</h1></a>
+        </div>
+        <div class="header-right">
+            <a href="profile.html" class="icon-wrapper"><i class="fas fa-user-circle"></i></a>
+        </div>
+    </header>
+
+    <div class="page-wrapper">
         <main class="profile-main-content">
             <aside class="profile-sidebar">
                 <nav>
                     <ul class="sidebar-menu">
-                        <li><a href="#" class="sidebar-link active" data-target="info-section">Thông tin cá nhân</a></li>
-                        <li><a href="#" class="sidebar-link" data-target="revenue-section">Doanh thu</a></li>
+                        <li><a href="#" class="sidebar-link active" data-target="info-section"><i class="fas fa-user-edit"></i>Thông tin cá nhân</a></li>
+                        <li><a href="#" class="sidebar-link" data-target="revenue-section"><i class="fas fa-chart-line"></i>Doanh thu</a></li>
                     </ul>
                 </nav>
             </aside>
 
             <div class="profile-content-area">
-                <section id="info-section" class="content-section active">
+                <section id="info-section" class="content-section" style="display: block;">
                     <h2>Thông tin cá nhân</h2>
                     <form class="info-form">
                         <div class="form-group">
@@ -49,11 +50,11 @@
                             <input type="text" value="123 Đường XYZ, Quận 1, TP.HCM" readonly>
                         </div>
                         <hr>
-                        <div class="form-group inline">
+                        <div class="form-group">
                             <label>Số sân:</label>
-                            <span>5</span>
+                            <input type="text" value="5" readonly>
                         </div>
-                        <div class="form-group inline">
+                        <div class="form-group">
                             <label>Tổng doanh thu:</label>
                             <span class="revenue-total">50,000,000 VND</span>
                         </div>
@@ -63,48 +64,18 @@
                     </form>
                 </section>
 
-                <section id="revenue-section" class="content-section">
+                <section id="revenue-section" class="content-section" style="display: none;">
                     <div class="revenue-header">
                          <h2>Doanh thu</h2>
                          <div class="revenue-filters">
                              <input type="date" title="Từ ngày">
                              <input type="date" title="Đến ngày">
-                             <select>
-                                 <option value="">Tất cả hình thức</option>
-                                 <option value="cash">Tiền mặt</option>
-                                 <option value="banking">Chuyển khoản</option>
-                             </select>
                              <button class="btn btn-secondary">Lọc</button>
                          </div>
                     </div>
                     <div class="table-container">
                         <table>
-                            <thead>
-                                <tr>
-                                    <th>ID Giao dịch</th>
-                                    <th>Tên sân</th>
-                                    <th>Giá</th>
-                                    <th>Hình thức</th>
-                                    <th>Ngày</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>#12345</td>
-                                    <td>Sân Cỏ 7A</td>
-                                    <td>350,000</td>
-                                    <td>Chuyển khoản</td>
-                                    <td>20/06/2025</td>
-                                </tr>
-                                <tr>
-                                    <td>#12344</td>
-                                    <td>Sân Tennis 2</td>
-                                    <td>250,000</td>
-                                    <td>Tiền mặt</td>
-                                    <td>19/06/2025</td>
-                                </tr>
-                                 </tbody>
-                        </table>
+                            </table>
                     </div>
                     <div class="revenue-summary">
                         <strong>Tổng:</strong> <span>600,000 VND</span>

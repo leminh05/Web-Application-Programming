@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Sport Slot</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+    <header>
+        <h2 class="logo"><a href="index.html">Sport Slot (Logo)</a></h2> 
+        <nav class="navigation">
+            <a href="#" class="nav-link" data-target-page="home">Home</a>
+            <a href="#" class="nav-link" data-target-page="court-list">Court List</a>
+            <button class="btnProfile-popup">
+                <i class="fas fa-user"></i>User Icon
+            </button>
+        </nav>
+    </header>
+
+    <div class="profile-page-wrapper hidden" id="profilePageWrapper">
+        <aside class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="sidebar-item active" data-content="account">
+                    Tài khoản
+                </li>
+                <li class="sidebar-item" data-content="deposit-history">
+                    Lịch sử đặt sân
+                </li>
+                <li class="sidebar-item" data-content="transaction-history">
+                    Lịch sử giao dịch
+                </li>
+                <li class="sidebar-item" data-content="voucher">
+                    Voucher
+                </li>
+            </ul>
+        </aside>
+        <main class="content-area">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Tổng quan</h2>
+                </div>
+                <div class="profile-overview-body">
+                    <div class="profile-info-section">
+                        <div class="info-row">
+                            <span class="info-label">Tên</span>
+                            <span class="info-value"></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Email</span>
+                            <span class="info-value"></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Số điện thoại</span>
+                            <span class="info-value"></span>
+                        </div>
+                    </div>
+                    <div class="member-type-box">
+                        Loại thành viên
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Điểm tích lũy</h2>
+                </div>
+                <div class="points-table-container">
+                    <div class="points-table-header">
+                        <div class="table-header-cell">Ngày / tháng / Điểm</div>
+                        <div class="table-header-cell-total">Tổng Điểm</div>
+                    </div>
+                    <div class="points-table-body-grid">
+                        <div class="points-details">
+                            <div class="table-row">
+                                <div class="table-cell"></div>
+                            </div>
+                            <div class="table-row">
+                                <div class="table-cell"></div>
+                            </div>
+                            <div class="table-row">
+                                <div class="table-cell"></div>
+                            </div>
+                            <div class="table-row">
+                                <div class="table-cell"></div>
+                            </div>
+                            <div class="table-row">
+                                <div class="table-cell"></div>
+                            </div>
+                        </div>
+                        <div class="overall-total-points">
+                               <p></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section" id="deposit-history-content" style="display: none;">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Lịch sử đặt sân</h2>
+                    </div>
+
+                    <div class="deposit-history-filter">
+                        <div class="filter-group">
+                            <label for="orderCode">Mã đơn:</label>
+                            <input type="text" id="orderCode" placeholder="Nhập mã đơn">
+                        </div>
+                        <div class="filter-group">
+                            <label for="fromDate">Từ ngày:</label>
+                            <input type="date" id="fromDate">
+                        </div>
+                        <div class="filter-group">
+                            <label for="toDate">Đến ngày:</label>
+                            <input type="date" id="toDate">
+                        </div>
+                        <button class="filter-button">
+                            <ion-icon name="funnel-outline"></ion-icon> Lọc
+                        </button>
+                    </div>
+
+                    <div class="history-table-container">
+                        <div class="history-table-header">
+                            <div class="history-header-cell">Thời gian</div>
+                            <div class="history-header-cell">Mã Đơn</div>
+                            <div class="history-header-cell">Sân</div>
+                            <div class="history-header-cell">Tổng tiền</div>
+                            <div class="history-header-cell">Trạng thái</div>
+                        </div>
+                        <div class="history-table-body">
+                            <div class="history-table-row">
+                                <div class="history-table-cell"></div>
+                                <div class="history-table-cell"></div>
+                                <div class="history-table-cell"></div>
+                                <div class="history-table-cell"></div>
+                                <div class="history-table-cell status-completed"></div>
+                            </div>
+                            <div class="history-table-row">
+                                <div class="history-table-cell"></div>
+                                <div class="history-table-cell"></div>
+                                <div class="history-table-cell"></div>
+                                <div class="history-table-cell"></div>
+                                <div class="history-table-cell status-pending"></div>
+                            </div>
+                            <div class="history-table-row">
+                                <div class="history-table-cell"></div>
+                                <div class="history-table-cell"></div>
+                                <div class="history-table-cell"></div>
+                                <div class="history-table-cell"></div>
+                                <div class="history-table-cell status-cancelled"></div>
+                            </div>
+                            </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="content-section" id="transaction-history-content" style="display: none;">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Lịch sử giao dịch</h2>
+                    </div>
+
+                    <div class="deposit-history-filter"> <div class="filter-group">
+                            <label for="transactionCode">Mã đơn:</label>
+                            <input type="text" id="transactionCode" placeholder="Nhập mã đơn">
+                        </div>
+                        <div class="filter-group">
+                            <label for="transactionFromDate">Từ ngày:</label>
+                            <input type="date" id="transactionFromDate">
+                        </div>
+                        <div class="filter-group">
+                            <label for="transactionToDate">Đến ngày:</label>
+                            <input type="date" id="transactionToDate">
+                        </div>
+                        <button class="filter-button">
+                            <ion-icon name="funnel-outline"></ion-icon> Lọc
+                        </button>
+                    </div>
+
+                    <div class="history-table-container"> <div class="history-table-header">
+                            <div class="history-header-cell">Thời gian</div>
+                            <div class="history-header-cell">Mã Đơn</div>
+                            <div class="history-header-cell">Phương thức</div>
+                            <div class="history-header-cell">Tổng tiền</div>
+                            <div class="history-header-cell">Trạng thái</div>
+                        </div>
+                        <div class="history-table-body">
+                            <div class="history-table-row">
+                                <div class="history-table-cell"></div>
+                                <div class="history-table-cell"></div>
+                                <div class="history-table-cell"></div>
+                                <div class="history-table-cell"></div>
+                                <div class="history-table-cell status-completed"></div>
+                            </div>
+                            <div class="history-table-row">
+                                <div class="history-table-cell"></div>
+                                <div class="history-table-cell"></div>
+                                <div class="history-table-cell"></div>
+                                <div class="history-table-cell"></div>
+                                <div class="history-table-cell status-pending"></div>
+                            </div>
+                            <div class="history-table-row">
+                                <div class="history-table-cell"></div>
+                                <div class="history-table-cell"></div>
+                                <div class="history-table-cell"></div>
+                                <div class="history-table-cell"></div>
+                                <div class="history-table-cell status-cancelled"></div>
+                            </div>
+                            </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="content-section" id="voucher-content" style="display: none;">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Voucher của bạn</h2>
+                    </div>
+                    <div class="voucher-list-container">
+                        <div class="voucher-card">
+                            <div class="voucher-info">
+                                <h3 class="voucher-title">Giảm giá 20% đặt sân</h3>
+                                <p class="voucher-discount">20% OFF</p>
+                                <div class="voucher-meta">
+                                    <span class="voucher-code">Mã: SPORT20</span>
+                                    <span class="voucher-expiry">HSD: 31/12/2025</span>
+                                </div>
+                                <p class="voucher-conditions">Áp dụng cho đơn hàng trên 200.000 VNĐ. Sử dụng 1 lần.</p>
+                                <button class="voucher-action-btn">
+                                    <i class="fas fa-hand-pointer"></i> Áp dụng
+                                </button>
+                            </div>
+                            <div class="voucher-image">
+                                <img src="image/badminton_court_icon.png" alt="Sân cầu lông">
+                                <p class="image-label">Sân cầu lông</p>
+                            </div>
+                        </div>
+                        <div class="voucher-card expired">
+                            <div class="voucher-info">
+                                <h3 class="voucher-title">Miễn phí 1 giờ chơi</h3>
+                                <p class="voucher-discount">MIỄN PHÍ</p>
+                                <div class="voucher-meta">
+                                    <span class="voucher-code">Mã: FREEHOUR</span>
+                                    <span class="voucher-expiry">HSD: 30/06/2024</span>
+                                </div>
+                                <p class="voucher-conditions">Áp dụng cho sân bóng đá vào các ngày trong tuần.</p>
+                                <button class="voucher-action-btn" disabled>
+                                    <i class="fas fa-ban"></i> Đã hết hạn
+                                </button>
+                            </div>
+                            <div class="voucher-image">
+                                <img src="image/tennis_court_icon.png" alt="Sân tennis">
+                                <p class="image-label">Sân Tennis</p>
+                            </div>
+                        </div>
+
+                        <div class="voucher-card used">
+                            <div class="voucher-info">
+                                <h3 class="voucher-title">Giảm 50k cho lần đầu</h3>
+                                <p class="voucher-discount">50.000 VNĐ</p>
+                                <div class="voucher-meta">
+                                    <span class="voucher-code">Mã: NEWUSER50</span>
+                                    <span class="voucher-expiry">HSD: 15/07/2024</span>
+                                </div>
+                                <p class="voucher-conditions">Dành cho khách hàng mới, đơn hàng từ 100.000 VNĐ.</p>
+                                <button class="voucher-action-btn" disabled>
+                                    <i class="fas fa-check-circle"></i> Đã sử dụng
+                                </button>
+                            </div>
+                            <div class="voucher-image">
+                                <img src="image/football_court_icon.png" alt="Sân bóng đá">
+                                <p class="image-label">Sân Bóng Đá</p>
+                            </div>
+                        </div>
+
+                        </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="court-list-page-wrapper hidden" id="courtListPageWrapper">
+        <aside class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="sidebar-item active" data-court-type="football" data-court-name="Sân Bóng Đá">
+                    Sân Bóng Đá
+                </li>
+                <li class="sidebar-item" data-court-type="basketball" data-court-name="Sân Bóng Rổ">
+                    Sân Bóng Rổ
+                </li>
+                <li class="sidebar-item" data-court-type="volleyball" data-court-name="Sân Bóng Chuyền">
+                    Sân Bóng Chuyền
+                </li>
+            </ul>
+        </aside>
+        <main class="content-area"></main> 
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

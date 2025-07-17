@@ -1,0 +1,1037 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    min-height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('image/background.jpg') no-repeat;
+    background-size: cover;
+    background-position: center;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    height: 80px;
+    box-sizing: border-box;
+}
+
+.logo {
+    font-size: 2.2em;
+    color: #162938;
+    user-select: none;
+    font-weight: 600;
+}
+
+.logo a {
+    color: #162938;
+    text-decoration: none;
+}
+
+.logo a:hover {
+    color: #333;
+    text-decoration: none;
+}
+
+.navigation {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.navigation a {
+    position: relative;
+    font-size: 1.2em;
+    color: #162938;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.navigation a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 3px;
+    background: #162938;
+    border-radius: 5px;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform .5s;
+}
+
+.navigation a:hover::after {
+    transform-origin: left;
+    transform: scaleX(1);
+}
+
+.navigation .btnProfile-popup {
+    width: auto;
+    height: 42px;
+    background-color: transparent;
+    border: 1px solid #c0c0c0;
+    outline: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1em;
+    color: #333;
+    font-weight: 500;
+    padding: 0 15px;
+    transition: .3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.navigation .btnProfile-popup i {
+    font-size: 1em;
+    color: #333;
+}
+
+.navigation .btnProfile-popup:hover {
+    background: #f0f0f0;
+    color: #162938;
+    border-color: #162938;
+}
+
+.navigation .btnProfile-popup:hover i {
+    color: #162938;
+}
+
+
+.wrapper.active-popup {
+    transform: scale(1);
+}
+
+.wrapper.hidden {
+    display: none !important;
+}
+
+.wrapper.active {
+    height: 520px;
+}
+
+.wrapper .form-box {
+    width: 100%;
+    padding: 40px;
+}
+
+
+.form-box h2 {
+    font-size: 2.2em;
+    color: #162938;
+    text-align: center;
+}
+
+.input-box {
+    position: relative;
+    width: 100%;
+    height: 55px;
+    border-bottom: 2px solid #162938;
+    margin: 30px 0;
+}
+
+.input-box label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 1.1em;
+    color: #162938;
+    font-weight: 500;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.input-box input:focus~label,
+.input-box input:valid~label {
+    top: -5px;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1.1em;
+    color: #162938;
+    font-weight: 600;
+    padding: 0 35px 0 5px;
+}
+.input-box .icon {
+    position: absolute;
+    right: 8px;
+    font-size: 1.3em;
+    color: #162938;
+    line-height: 55px;
+}
+
+.remember-forgot {
+    font-size: 1em;
+    color: #162938;
+    font-weight: 500;
+    margin: -15px 0 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.remember-forgot label input {
+    accent-color: #162938;
+    margin-right: 3px;
+}
+
+.remember-forgot a {
+    color: #162938;
+    text-decoration: none;
+}
+
+.remember-forgot a:hover {
+    text-decoration: underline;
+}
+
+.btn {
+    width: 100%;
+    height: 50px;
+    background: #162938;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    color: #fff;
+    font-weight: 500;
+}
+
+.login-register {
+    font-size: .9em;
+    color: #162938;
+    text-align: center;
+    font-weight: 500;
+    margin: 25px 0 10px;
+}
+
+.login-register p a {
+    color: #162938;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-register p a:hover {
+    text-decoration: underline;
+}
+
+/* --- CSS CHO PROFILE PAGE & COURT LIST PAGE --- */
+
+.profile-page-wrapper,
+.court-list-page-wrapper {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    min-height: calc(100vh - 80px);
+    margin-top: 80px;
+    margin-bottom: 0;
+    background-color: transparent;
+    box-sizing: border-box;
+    align-items: stretch;
+    padding: 0;
+}
+
+.profile-page-wrapper.hidden,
+.court-list-page-wrapper.hidden {
+    display: none !important;
+}
+
+/* Sidebar */
+.sidebar {
+    flex: 0 0 220px;
+    background-color: #fff;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    overflow: hidden;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    padding-top: 30px;
+    padding-left: 20px;
+    padding-right: 10px;
+}
+
+.sidebar-item {
+    padding: 14px 18px;
+    cursor: pointer;
+    color: #333;
+    font-size: 19px;
+    border-bottom: 1px solid #c0c0c0;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sidebar-item a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+}
+
+.sidebar-item i {
+    margin-right: 10px;
+    font-size: 1em;
+    color: #007bff;
+    transition: color 0.2s ease;
+}
+
+.sidebar-item:first-child {
+    border-top: none;
+}
+.sidebar-item:last-child {
+    border-bottom: none;
+}
+
+.sidebar-item.active {
+    background-color: #eaf6fe;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.sidebar-item.active i {
+    color: #007bff;
+}
+
+.sidebar-item:hover:not(.active) {
+    background-color: #f7f7f7;
+}
+
+.sidebar-item:hover:not(.active) i {
+    color: #555;
+}
+
+/* Content Area - Khung lớn chứa tất cả các phần */
+.content-area {
+    flex: 1;
+    display: block;
+    background-color: #fff;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    padding: 25px;
+    margin-left: 0;
+    overflow: hidden;
+}
+
+/* Styling for Headers within the main content area */
+.card-header {
+    text-align: center;
+    border-bottom: 2px solid #555;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+}
+
+.card-header .card-title {
+    font-size: 30px;
+    color: #333;
+    margin: 0;
+    font-weight: bold;
+}
+
+.card-header:not(.first) {
+    margin-top: 30px;
+}
+
+.card-header.first {
+    margin-top: 0;
+}
+
+/* KHUNG CHÍNH CỦA CARD */
+.card {
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    background-color: #fff;
+    overflow: hidden;
+}
+
+/* Profile Overview Section */
+.profile-overview-body {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 25px;
+    align-items: start;
+    position: relative;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.profile-info-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    grid-column: 1;
+    align-self: start;
+    padding-left: 20px;
+}
+
+.info-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+    line-height: 1.3;
+}
+
+.info-label {
+    font-size: 19px;
+    color: #666;
+    width: 110px;
+    flex-shrink: 0;
+    text-align: left;
+    padding-right: 8px;
+}
+
+.info-label::after {
+    content: ':';
+    margin-left: 2px;
+    color: #666;
+}
+
+.info-value {
+    flex-grow: 1;
+    border-bottom: 2px dashed #666;
+    padding-bottom: 3px;
+    min-height: 20px;
+    font-size: 19px;
+    color: #333;
+    text-align: left;
+}
+
+.member-type-box {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    background-color: transparent;
+    color: #007bff;
+    padding: 20px 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    white-space: nowrap;
+    border: 2px solid #0056b3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 130px;
+    height: 110px;
+    box-sizing: border-box;
+    align-self: start;
+    padding-right: 20px;
+}
+
+/* Points Table Section */
+.points-table-container {
+    border: 3px solid #555;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.points-table-header {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    background-color: #f5f5f5;
+    border-bottom: 3px solid #555;
+}
+
+.table-header-cell {
+    font-weight: bold;
+    padding: 15px 18px;
+    text-align: center;
+    font-size: 17px;
+    color: #555;
+    border-right: 1px solid #888;
+}
+
+.table-header-cell-total {
+    font-weight: bold;
+    padding: 15px 18px;
+    text-align: center;
+    font-size: 17px;
+    color: #555;
+    border-right: none;
+}
+
+.points-table-body-grid {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+}
+
+.points-details {
+    grid-column: 1 / 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.table-row {
+    display: flex;
+    width: 100%;
+}
+
+.table-cell {
+    flex-grow: 1;
+    padding: 12px 18px;
+    text-align: center;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    color: #666;
+    border-bottom: 2px solid #d0d0d0;
+    border-right: none;
+}
+
+.points-details .table-row:last-child .table-cell {
+    border-bottom: none;
+}
+
+.overall-total-points {
+    grid-column: 2 / 3;
+    grid-row: 1 / -1;
+    background-color: #eaf6fe;
+    border-left: 3px solid #555;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Căn giữa nội dung dọc */
+    align-items: center; /* Căn giữa nội dung ngang */
+    padding: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+/* Deposit History & Transaction History Filter Sections */
+.deposit-history-filter {
+    display: flex;
+    flex-wrap: wrap; /* Cho phép xuống dòng trên màn hình nhỏ */
+    gap: 15px; /* Giảm khoảng cách giữa các phần tử filter */
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    align-items: flex-end; /* Căn chỉnh các mục theo đáy */
+}
+
+.deposit-history-filter .filter-group {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Cho phép các nhóm lọc tự co giãn */
+    min-width: 150px; /* Đảm bảo đủ rộng cho input */
+}
+
+.deposit-history-filter .filter-group label {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.deposit-history-filter .filter-group input[type="text"],
+.deposit-history-filter .filter-group input[type="date"] {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%; /* Chiếm toàn bộ chiều rộng của nhóm */
+    box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước */
+}
+
+.deposit-history-filter .filter-button {
+    padding: 10px 18px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap; /* Ngăn nút xuống dòng */
+    transition: background-color 0.2s ease;
+}
+
+.deposit-history-filter .filter-button:hover {
+    background-color: #0056b3;
+}
+
+.deposit-history-filter .filter-button ion-icon {
+    font-size: 1.1em;
+}
+
+
+/* History Table Container */
+.history-table-container {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.history-table-header {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 cột bằng nhau */
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+}
+
+.history-header-cell {
+    font-weight: bold;
+    padding: 12px 15px;
+    text-align: center;
+    font-size: 15px;
+    color: #555;
+}
+
+.history-table-body {
+    /* Không cần display: grid ở đây nếu các hàng đã là flex hoặc block */
+}
+
+.history-table-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 cột bằng nhau */
+    border-bottom: 1px solid #eee;
+}
+
+.history-table-row:last-child {
+    border-bottom: none; /* Bỏ viền dưới cho hàng cuối cùng */
+}
+
+.history-table-cell {
+    padding: 10px 15px;
+    text-align: center;
+    font-size: 15px;
+    color: #666;
+    display: flex; /* Để căn giữa nội dung theo cả chiều ngang và dọc */
+    align-items: center;
+    justify-content: center;
+}
+
+/* Status colors */
+.status-completed {
+    color: #28a745; /* Màu xanh lá cho hoàn thành */
+    font-weight: bold;
+}
+
+.status-pending {
+    color: #ffc107; /* Màu vàng cho đang chờ xử lý */
+    font-weight: bold;
+}
+
+.status-cancelled {
+    color: #dc3545; /* Màu đỏ cho đã hủy */
+    font-weight: bold;
+}
+
+/* Voucher Section */
+.voucher-list-container {
+    display: grid;
+    gap: 25px; /* Tăng khoảng cách giữa các voucher */
+    padding: 15px;
+}
+
+.voucher-card {
+    display: flex;
+    background-color: #fff;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); /* Tăng đổ bóng */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.voucher-card:hover {
+    transform: translateY(-3px); /* Hiệu ứng nổi nhẹ */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+}
+
+.voucher-info {
+    flex: 3; /* Chiếm 3 phần không gian */
+    padding: 20px; /* Tăng padding */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.voucher-title {
+    font-size: 1.3em; /* Tăng cỡ chữ tiêu đề */
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.voucher-discount {
+    font-size: 1.8em; /* Tăng cỡ chữ giảm giá */
+    font-weight: bold;
+    color: #007bff; /* Màu sắc nổi bật */
+    margin-bottom: 10px;
+}
+
+.voucher-meta {
+    display: flex;
+    gap: 15px;
+    font-size: 0.95em; /* Tăng cỡ chữ meta */
+    color: #777;
+    margin-bottom: 10px;
+}
+
+.voucher-code,
+.voucher-expiry {
+    background-color: #f0f0f0;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.voucher-conditions {
+    font-size: 0.9em;
+    color: #888;
+    margin-bottom: 15px;
+}
+
+.voucher-action-btn {
+    padding: 12px 20px; /* Tăng padding nút */
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em; /* Tăng cỡ chữ nút */
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.voucher-action-btn:hover {
+    background-color: #218838;
+}
+
+.voucher-action-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.voucher-card.expired {
+    border-color: #ffccbc;
+    background-color: #fffafa;
+}
+
+.voucher-card.expired .voucher-discount,
+.voucher-card.expired .voucher-action-btn {
+    color: #dc3545;
+}
+
+.voucher-card.used {
+    border-color: #d0e0d0;
+    background-color: #f8fff8;
+}
+
+.voucher-card.used .voucher-discount,
+.voucher-card.used .voucher-action-btn {
+    color: #6c757d;
+}
+
+.voucher-card.expired .voucher-action-btn {
+    background-color: #efefef;
+    color: #6c757d;
+    border: 1px solid #ddd;
+}
+
+.voucher-card.used .voucher-action-btn {
+    background-color: #efefef;
+    color: #6c757d;
+    border: 1px solid #ddd;
+}
+
+.voucher-image {
+    flex: 1; /* Chiếm 1 phần không gian */
+    background-color: #f7f7f7;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    border-left: 2px dashed #e0e0e0;
+}
+
+.voucher-image img {
+    max-width: 80%;
+    height: auto;
+    margin-bottom: 8px;
+}
+
+.image-label {
+    font-size: 0.9em;
+    color: #555;
+    text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    header {
+        padding: 20px 30px;
+    }
+
+    .navigation {
+        gap: 15px;
+    }
+
+    .navigation a {
+        font-size: 1em;
+    }
+
+    .btnProfile-popup {
+        padding: 0 10px;
+        font-size: 0.9em;
+    }
+
+    .profile-page-wrapper,
+    .court-list-page-wrapper {
+        flex-direction: column; /* Xếp sidebar lên trên content area */
+        margin-top: 80px;
+        min-height: auto;
+    }
+
+    .sidebar {
+        flex: none; /* Bỏ cố định chiều rộng */
+        width: 100%; /* Sidebar chiếm toàn bộ chiều rộng */
+        border-radius: 0;
+        box-shadow: none;
+        padding-bottom: 0;
+    }
+
+    .sidebar-menu {
+        display: flex; /* Xếp các item cạnh nhau */
+        flex-wrap: wrap; /* Cho phép xuống dòng */
+        justify-content: space-around; /* Căn đều các item */
+        padding-top: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .sidebar-item {
+        flex: 1 1 auto; /* Các item tự co giãn */
+        text-align: center;
+        padding: 10px 5px;
+        border-bottom: none; /* Bỏ viền dưới */
+        border-right: 1px solid #eee; /* Thêm viền phải để phân tách */
+        font-size: 16px;
+    }
+
+    .sidebar-item:last-child {
+        border-right: none;
+    }
+
+    .sidebar-item i {
+        display: block; /* Icon lên hàng mới */
+        margin: 0 auto 5px; /* Căn giữa icon */
+    }
+
+    .content-area {
+        margin-left: 0;
+        border-top-left-radius: 0;
+        padding: 15px;
+    }
+
+    .profile-overview-body {
+        grid-template-columns: 1fr; /* Stack cột trên mobile */
+    }
+
+    .profile-info-section {
+        padding-left: 0;
+    }
+
+    .info-label {
+        width: 90px;
+        font-size: 17px;
+    }
+
+    .info-value {
+        font-size: 17px;
+    }
+
+    .member-type-box {
+        grid-column: 1;
+        grid-row: auto;
+        margin-top: 20px;
+        padding: 15px;
+        font-size: 18px;
+        min-width: unset;
+        height: auto;
+    }
+
+    .points-table-header,
+    .points-table-body-grid,
+    .history-table-header,
+    .history-table-row {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Cột linh hoạt */
+    }
+
+    .points-table-header .table-header-cell,
+    .points-table-header .table-header-cell-total,
+    .history-header-cell,
+    .history-table-cell {
+        padding: 8px 10px;
+        font-size: 14px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .overall-total-points {
+        grid-column: 1 / -1;
+        border-left: none;
+        border-top: 3px solid #555;
+        padding: 15px;
+        font-size: 18px;
+    }
+
+    .deposit-history-filter {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .deposit-history-filter .filter-group {
+        min-width: unset;
+    }
+
+    .deposit-history-filter .filter-button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .voucher-card {
+        flex-direction: column;
+    }
+
+    .voucher-info {
+        padding: 15px;
+    }
+
+    .voucher-image {
+        border-top: 2px dashed #e0e0e0;
+        border-left: none;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 15px 20px;
+        height: 70px;
+    }
+
+    .logo {
+        font-size: 1.8em;
+    }
+
+    .navigation a {
+        font-size: 1em;
+        margin-left: 10px;
+    }
+
+    .navigation .btnProfile-popup {
+        font-size: 0.8em;
+        height: 38px;
+        padding: 0 12px;
+    }
+
+    .wrapper {
+        width: 90%;
+        margin: 80px auto 30px;
+        height: auto;
+    }
+
+    .form-box h2 {
+        font-size: 1.8em;
+    }
+
+    .input-box {
+        height: 50px;
+        margin: 25px 0;
+    }
+
+    .input-box label,
+    .input-box input,
+    .input-box .icon {
+        font-size: 1em;
+        line-height: 50px;
+    }
+
+    .btn {
+        height: 45px;
+        font-size: 1em;
+    }
+
+    .sidebar-item {
+        font-size: 15px;
+    }
+
+    .card-header .card-title {
+        font-size: 24px;
+    }
+
+    .info-label,
+    .info-value,
+    .member-type-box,
+    .table-header-cell,
+    .table-header-cell-total,
+    .table-cell,
+    .history-header-cell,
+    .history-table-cell {
+        font-size: 14px;
+    }
+
+    .voucher-title {
+        font-size: 1.1em;
+    }
+
+    .voucher-discount {
+        font-size: 1.5em;
+    }
+
+    .voucher-action-btn {
+        font-size: 1em;
+        padding: 10px 15px;
+    }
+}

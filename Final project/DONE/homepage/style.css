@@ -1,0 +1,994 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Đảm bảo HTML và Body chiếm 100% chiều cao và loại bỏ overflow không mong muốn */
+html, body {
+    height: 100%; /* Đảm bảo cả html và body chiếm hết chiều cao của viewport */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* NGĂN CUỘN NGANG */
+    box-sizing: border-box; /* Quan trọng để padding/border không làm tràn */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column; /* Các phần tử xếp chồng dọc */
+    justify-content: flex-start; /* Bắt đầu từ trên cùng */
+    align-items: center; /* Căn giữa theo chiều ngang */
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('image/background.jpg') no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Giữ ảnh nền cố định */
+    min-height: 100vh; /* Đảm bảo body ít nhất là cao bằng viewport */
+    position: relative; /* Đặt body là context cho các phần tử absolute bên trong nếu cần */
+    
+    /* Mặc định body có padding-top khi dashboard ẩn */
+    padding-top: 90px; /* Thêm padding-top bằng chiều cao của header (khoảng 90px) */
+}
+
+/* KHI DASHBOARD HIỆN, BỎ PADDING-TOP TRÊN BODY ĐỂ NỘI DUNG SÁT LÊN HƠN */
+body.show-dashboard { 
+    padding-top: 0; /* Bỏ padding top khi dashboard hiển thị */
+}
+
+
+header {
+    position: fixed; /* Giữ nguyên fixed để header luôn ở trên cùng */
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Thêm bóng đổ cho header */
+}
+
+.logo {
+    font-size: 2em;
+    color: #162938;
+    user-select: none;
+}
+
+.navigation a {
+    position: relative;
+    font-size: 1.1em;
+    color: #162938;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 40px;
+}
+
+.navigation a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 3px;
+    background: #162938;
+    border-radius: 5px;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform .5s;
+}
+
+.navigation a:hover::after {
+    transform-origin: left;
+    transform: scaleX(1);
+}
+
+.navigation .btnLogin-popup {
+    width: 130px;
+    height: 50px;
+    background-color: transparent;
+    border: 2px solid #162938;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    color: #162938;
+    font-weight: 500;
+    margin-left: 40px;
+    transition: .5s;
+}
+
+.navigation .btnLogin-popup:hover {
+    background: #162938;
+    color: #fff;
+}
+
+/* Class để ẩn/hiện toàn bộ dashboard content */
+.dashboard-hidden {
+    display: none; /* Ẩn toàn bộ nội dung dashboard */
+}
+
+.dashboard-visible {
+    display: flex; /* Hiển thị nội dung dashboard (được điều khiển bằng JS) */
+    flex-direction: column; /* Đảm bảo layout dọc như cũ */
+    width: 100%; /* Chiếm toàn bộ chiều rộng */
+    flex-grow: 1; /* Cho phép nó mở rộng để chiếm hết không gian có thể trong body */
+    justify-content: flex-start; /* Thay đổi từ center để nội dung bắt đầu từ trên cùng */
+}
+
+/* Container chính cho nội dung dưới header */
+.content-wrapper {
+    width: 100%; /* Chiếm toàn bộ chiều rộng có thể */
+    max-width: 1200px; /* Giới hạn chiều rộng tối đa */
+    margin-left: auto;   /* Căn giữa tự động theo chiều ngang */
+    margin-right: auto;  /* Căn giữa tự động theo chiều ngang */
+    padding-left: max(15px, calc((100vw - 1200px) / 2)); /* Padding động để có khoảng trống và căn giữa */
+    padding-right: max(15px, calc((100vw - 1200px) / 2)); /* Padding động */
+    box-sizing: border-box; /* Đảm bảo padding không làm tràn width */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1; /* Đảm bảo nằm trên ảnh nền */
+    flex-grow: 1; /* Cho phép nó mở rộng để chiếm hết không gian có thể trong body */
+    justify-content: flex-start; /* Thay đổi từ center để nội dung bắt đầu từ trên cùng */
+}
+
+/* Main content section container */
+.main-content-section {
+    position: relative; /* Giữ nguyên relative để theo luồng tài liệu */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 300px; /* ĐÃ CẬP NHẬT: Khoảng cách từ phía trên (header) */
+    margin-bottom: 60px; /* Khoảng cách giữa thanh đen và danh sách sân */
+}
+
+/* Styles for the green box */
+.green-box {
+    width: 100%;
+    height: 290px;
+    background-color: #f4f4f4;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #162938;
+    font-size: 2.5em;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Styles for the selection bar */
+.selection-bar {
+    width: 100%;
+    background-color: #000;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 15px 20px;
+    color: #fff;
+    gap: 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    height: 60px;
+    margin-top: -1px;
+    position: relative; /* Thêm position relative để dropdown có thể định vị tuyệt đối */
+    z-index: 2; /* Đảm bảo thanh chọn nằm trên khung xanh */
+}
+
+.selection-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    white-space: nowrap;
+    flex-grow: 1;
+    justify-content: center;
+    padding: 0 10px;
+    position: relative;
+    color: #fff;
+    z-index: 2;
+}
+
+/* Đảm bảo item chọn và dropdown của nó hiển thị trên cùng khi active */
+.selection-item.active {
+    z-index: 1000;
+}
+
+/* Đường kẻ phân cách giữa các item */
+.selection-item:not(:last-child) {
+    border-right: 1px solid #555;
+}
+
+.selection-item .arrow-down {
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #fff;
+    cursor: pointer;
+}
+
+.selection-arrow-right {
+    width: 35px;
+    height: 35px;
+    background-color: #162938; /* Thay đổi màu để nổi bật hơn */
+    border: 2px solid #162938;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-left: 15px;
+    flex-shrink: 0;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease;
+}
+
+.selection-arrow-right:hover {
+    background-color:#2e4d6a; /* Màu hover đậm hơn */
+}
+
+.selection-arrow-right::after {
+    content: '';
+    position: absolute;
+    transform: translate(10%, 0);
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 10px solid #fff;
+}
+
+/* Styles for the dropdown menu */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    display: none;
+    z-index: 10;
+    padding: 5px 0;
+}
+
+/* Show dropdown menu when active */
+.selection-item.active .dropdown-menu {
+    display: block;
+}
+
+/* Styles cho các mục trong dropdown tùy chỉnh của chúng ta */
+.dropdown-menu .dropdown-item {
+    color: #000;
+    padding: 8px 15px;
+    cursor: pointer;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background-color: #f0f0f0;
+}
+
+/* Đảm bảo các input ẩn của Flatpickr thực sự bị ẩn */
+#date-picker-input,
+#time-picker-input {
+    display: none !important;
+}
+
+/* Styles for Flatpickr calendar - Tăng Z-INDEX cực cao */
+.flatpickr-calendar {
+    z-index: 99999 !important;
+}
+
+/* Styles for the available courts section */
+.available-courts-section {
+    position: relative; /* Giữ nguyên relative để theo luồng tài liệu */
+    width: 100%;
+    color: #fff;
+    padding-bottom: 50px; /* Đảm bảo có khoảng trống ở dưới */
+    /* margin-top: 30px; Đã di chuyển khoảng cách này lên main-content-section */
+}
+
+.refresh-icon {
+    pointer-events: auto;
+}
+
+.available-courts-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.section-title {
+    font-size: 1.5em;
+    font-weight: 600;
+    color: #fff;
+}
+
+.refresh-icon ion-icon {
+    font-size: 1.8em;
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.5s ease;
+}
+
+.refresh-icon ion-icon:hover {
+    transform: rotate(180deg);
+}
+
+/* --- CẬP NHẬT styles cho .court-cards-container (Không cuộn, chỉ 6 sân, căn giữa) --- */
+.court-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Đảm bảo căn giữa các thẻ sân */
+    overflow: hidden; /* ẨN MỌI THANH CUỘN (x và y) */
+    padding-bottom: 0;
+    gap: 50px; /* Khoảng cách giữa các thẻ */
+    height: auto;
+    width: 100%;
+    padding: 0 25px; /* ĐÃ THÊM: Thêm padding 25px ở hai bên để tránh dính sát mép */
+}
+
+/* Ẩn thanh cuộn mặc định (đảm bảo không xuất hiện nếu overflow: hidden; không đủ) */
+.court-cards-container::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+}
+.court-cards-container {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* --- CẬP NHẬT styles cho .court-card --- */
+.court-card {
+    flex-shrink: 0;
+    width: calc((100% - 2 * 50px) / 3); /* 3 cột với 2 khoảng cách 50px */
+    background-color: #fff;
+    border-radius: 10px;
+    height: auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    color: #333;
+    font-weight: 400;
+    cursor: default;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+}
+
+.court-card:hover {
+    transform: translateY(-5px);
+}
+
+.court-card .court-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+}
+
+.court-info-wrapper {
+    padding: 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.court-name {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #162938;
+}
+
+.court-detail-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95em;
+    color: #555;
+    margin-bottom: 4px;
+}
+
+.court-detail-item ion-icon {
+    font-size: 1.1em;
+    color: #555;
+}
+
+.court-detail-item:last-of-type {
+    margin-bottom: 15px;
+}
+
+.detail-button {
+    background-color: #162938;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    width: 100%;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.detail-button:hover {
+    background-color: #2e4d6a;
+}
+
+/* Các styles cho Modal chi tiết sân đã bị loại bỏ hoàn toàn */
+
+
+/* Responsive adjustments */
+@media (max-width: 992px) { /* Trên màn hình tablet lớn, hiển thị 2 sân mỗi hàng */
+    header {
+        padding: 20px 50px; /* Điều chỉnh padding cho header */
+    }
+    .court-card {
+        width: calc((100% - 1 * 50px) / 2); /* 2 cột với 1 khoảng cách 50px */
+    }
+    .court-cards-container { /* Điều chỉnh padding cho tablet để các thẻ không dính mép */
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 768px) { /* Trên màn hình tablet nhỏ/điện thoại ngang, hiển thị 1 sân mỗi hàng */
+    .court-card {
+        width: 100%; /* Chiếm toàn bộ chiều rộng có sẵn */
+    }
+    .selection-bar {
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+        gap: 10px;
+    }
+    .selection-item {
+        width: 100%;
+        padding: 10px;
+        border-right: none;
+        border-bottom: 1px solid #555;
+    }
+    .selection-item:last-child {
+        border-bottom: none;
+    }
+    .selection-arrow-right {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    .main-content-section {
+        margin-top: 20px; /* Điều chỉnh lại margin-top trên mobile */
+    }
+    .available-courts-section {
+        margin-top: 20px; /* Khoảng cách từ thanh selection bar trên mobile */
+    }
+    header {
+        padding: 20px 30px;
+    }
+    .navigation a {
+        margin-left: 20px;
+    }
+    .court-cards-container { /* Điều chỉnh padding cho mobile để các thẻ không dính mép */
+        padding: 0 10px;
+    }
+}
+
+@media (max-width: 576px) { /* Trên điện thoại, hiển thị 1 sân mỗi hàng */
+    .court-card {
+        width: 90vw; /* Chiếm 90% chiều rộng viewport trên điện thoại */
+    }
+    header {
+        padding: 15px 20px; /* Giảm padding ngang cho header */
+    }
+    .navigation a {
+        margin-left: 15px; /* Giảm khoảng cách giữa các link */
+        font-size: 1em;
+    }
+    .navigation .btnLogin-popup {
+        margin-left: 15px;
+        width: 90px; /* Thu nhỏ nút login */
+        height: 38px;
+        font-size: 0.8em;
+    }
+    .content-wrapper {
+        padding-left: 15px; /* Đảm bảo padding tối thiểu trên màn hình rất nhỏ */
+        padding-right: 15px;
+    }
+    .green-box {
+        font-size: 1.8em;
+        height: 200px; /* Giảm chiều cao khung xanh */
+    }
+    .selection-bar {
+        padding: 10px 5px;
+    }
+    .selection-item {
+        font-size: 1em;
+    }
+    .section-title {
+        font-size: 1.3em;
+    }
+}
+
+
+/* Wrapper for Login/Register (ADJUSTED) */
+.wrapper {
+    position: fixed; /* Thay đổi từ absolute sang fixed để popup luôn ở giữa */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 700px; /* Tăng chiều rộng để phù hợp với 2 cột đăng ký */
+    height: 480px; /* Chiều cao mặc định cho form login */
+    background: white;
+    border: 2px solid rgba(255, 255, 255, .5);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: transform .5s ease, height .2s ease;
+    z-index: 100;
+}
+
+.wrapper.active-popup {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.wrapper.active { /* Chiều cao khi form register hiển thị */
+    height: 600px; /* Đã điều chỉnh để chứa form đăng ký mới */
+}
+
+.wrapper .form-box {
+    width: 100%;
+    padding: 40px;
+}
+
+.wrapper .form-box.login {
+    transition: transform .18s ease;
+    transform: translateX(0);
+}
+
+.wrapper.active .form-box.login {
+    transition: none;
+    transform: translateX(-700px); /* Dựa trên chiều rộng mới của wrapper */
+}
+
+.wrapper .form-box.register {
+    position: absolute;
+    transition: none;
+    transform: translateX(700px); /* Dựa trên chiều rộng mới của wrapper */
+    width: 100%; /* Đảm bảo nó chiếm đủ chiều rộng */
+    height: 100%; /* Đảm bảo nó chiếm đủ chiều cao của wrapper */
+    padding: 20px; /* Điều chỉnh padding */
+}
+
+.wrapper.active .form-box.register {
+    transition: transform .18s ease;
+    transform: translateX(0);
+}
+
+.wrapper .icon-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 45px;
+    height: 45px;
+    background: #162938;
+    font-size: 2em;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom-left-radius: 20px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.form-box h2 {
+    font-size: 2em;
+    color: #162938;
+    text-align: center;
+}
+
+/* Original input-box for Login Form */
+.input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    border-bottom: 2px solid #162938;
+    margin: 30px 0;
+}
+
+.input-box label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 1em;
+    color: #162938;
+    font-weight: 500;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.input-box input:focus~label,
+.input-box input:valid~label {
+    top: -5px;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: #162938;
+    font-weight: 600;
+    padding: 0 35px 0 5px;
+}
+.input-box .icon {
+    position: absolute;
+    right: 8px;
+    font-size: 1.2em;
+    color: #162938;
+    line-height: 50px;
+}
+
+.remember-forgot {
+    font-size: .9em;
+    color: #162938;
+    font-weight: 500;
+    margin: -15px 0 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.remember-forgot label input {
+    accent-color: #162938;
+    margin-right: 3px;
+}
+
+.remember-forgot a {
+    color: #162938;
+    text-decoration: none;
+}
+
+.remember-forgot a:hover {
+    text-decoration: underline;
+}
+
+.btn {
+    width: 100%;
+    height: 45px;
+    background: #162938;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    color: #fff;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #2e4d6a;
+}
+
+.login-register {
+    font-size: .9em;
+    color: #162938;
+    text-align: center;
+    font-weight: 500;
+    margin: 25px 0 10px;
+}
+
+.login-register p a {
+    color: #162938;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-register p a:hover {
+    text-decoration: underline;
+}
+
+
+/* Custom Styles for new Registration Form Layout */
+
+.form-box.register {
+    /* Đảm bảo form register có đủ không gian và display flex để chứa 2 cột */
+    display: flex;
+    flex-direction: column; /* Để tiêu đề và nội dung xếp chồng */
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* Điều chỉnh padding */
+}
+
+.form-box.register form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Để push nút login/register xuống dưới */
+}
+
+.form-box.register h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.registration-form-content {
+    display: flex;
+    gap: 30px; /* Khoảng cách giữa 2 cột */
+    width: 100%;
+    flex-grow: 1; /* Cho phép nó mở rộng để chiếm không gian */
+}
+
+.account-details-column {
+    flex: 2; /* Chiếm 2 phần không gian */
+    display: flex;
+    flex-direction: column;
+    padding-right: 15px; /* Khoảng cách với đường phân chia */
+}
+
+.role-selection-column {
+    flex: 1; /* Chiếm 1 phần không gian */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Căn giữa các nút theo chiều dọc */
+    align-items: center; /* Căn giữa các nút theo chiều ngang */
+    padding-left: 15px; /* Khoảng cách với đường phân chia */
+}
+
+.role-selection-column .role-selection-title {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* Cập nhật CSS cho đường phân chia dọc */
+.vertical-divider {
+    width: 2px; /* Tăng độ dày của đường kẻ */
+    background-color: #333; /* Đổi màu đậm hơn, ví dụ màu đen hoặc xám đậm */
+    margin: 20px 15px; /* Điều chỉnh margin để có khoảng cách với nội dung hai bên */
+    align-self: stretch; /* Đảm bảo đường phân chia kéo dài toàn bộ chiều cao */
+    border-radius: 1px; /* Bo tròn nhẹ các cạnh nếu muốn */
+}
+
+/* Input Group Styles (for new registration form) */
+.form-box.register .input-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.form-box.register .input-group label {
+    display: block;
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 5px;
+    font-weight: bold;
+    position: static;
+    transform: none;
+}
+
+.form-box.register .input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    color: #162938;
+    background: #f9f9f9;
+    outline: none;
+    transition: border-color 0.3s ease;
+    height: auto;
+    padding-right: 10px;
+}
+
+.form-box.register .input-group input:focus {
+    border-color: #007bff;
+}
+
+.form-box.register .input-group input::placeholder {
+    color: #aaa;
+}
+
+/* Checkbox specific style for new form */
+.form-box.register .checkbox-row {
+    margin-top: 10px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    font-size: 0.9em;
+    color: #555;
+    font-weight: normal;
+}
+
+.form-box.register .checkbox-row label input[type="checkbox"] {
+    accent-color: #162938;
+    margin-right: 8px;
+    width: 16px;
+    height: 16px;
+}
+
+/* Role Buttons */
+.role-button {
+    width: 80%;
+    padding: 12px 20px;
+    margin-bottom: 15px;
+    border: 2px solid #162938;
+    background-color: #fff;
+    color: #162938;
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.role-button:hover {
+    background-color: #e6f2ff;
+}
+
+.role-button.selected { /* Class khi nút được chọn */
+    background-color: #162938;
+    color: #fff;
+}
+
+/* Styles for the new image panel in role selection */
+.role-image-panel {
+    width: 100%;
+    height: 120px; /* Chiều cao cố định cho panel ảnh */
+    margin-bottom: 20px; /* Khoảng cách với tiêu đề "Chọn loại tài khoản" */
+    border-radius: 8px;
+    overflow: hidden; /* Đảm bảo ảnh không tràn ra ngoài bo góc */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ nhẹ */
+    display: flex; /* Dùng flexbox để căn giữa ảnh */
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0; /* Màu nền dự phòng */
+}
+
+.role-panel-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Đảm bảo ảnh phủ đầy panel mà không bị méo */
+    display: block; /* Loại bỏ khoảng trắng dưới ảnh */
+}
+
+/* Submit Button for new registration form */
+.register-submit-btn {
+    background-color: #162938; /* Đã đổi màu nút Đăng ký cuối cùng giống nút Login */
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1.1em;
+    font-weight: 500;
+    margin-top: 10px;
+    width: 80%;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.register-submit-btn:hover {
+    background-color: #2e4d6a;
+}
+
+/* Login/Register link at the bottom */
+.login-register-bottom {
+    font-size: .9em;
+    color: #162938;
+    text-align: center;
+    font-weight: 500;
+    margin-top: 25px;
+}
+
+.login-register-bottom p a {
+    color: #162938;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-register-bottom p a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments for the registration form (wrapper) */
+@media (max-width: 768px) {
+    .wrapper {
+        width: 90%;
+        height: auto;
+        padding: 20px;
+    }
+
+    .wrapper.active {
+        height: auto;
+    }
+
+    .form-box.register h2 {
+        font-size: 2.2em;
+        margin-bottom: 20px;
+    }
+
+    .registration-form-content {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .account-details-column,
+    .role-selection-column {
+        padding: 0;
+        width: 100%;
+    }
+
+    /* Responsive cho đường phân chia khi layout chuyển thành cột */
+    .vertical-divider {
+        width: 80%; /* Chiều rộng của đường kẻ ngang */
+        height: 2px; /* Chiều cao của đường kẻ ngang */
+        margin: 20px auto; /* Căn giữa và tạo khoảng cách */
+    }
+
+    .role-selection-column {
+        margin-top: 15px;
+    }
+
+    .role-button, .register-submit-btn {
+        width: 90%;
+        margin-bottom: 10px;
+    }
+    .register-submit-btn {
+        margin-top: 20px;
+    }
+    .role-selection-column .role-selection-title {
+        margin-top: 10px;
+        margin-bottom: 15px;
+    }
+    /* Adjustments for role image panel on smaller screens */
+    .role-image-panel {
+        height: 100px; /* Giảm chiều cao trên mobile */
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .wrapper {
+        width: 95%;
+    }
+    .form-box.register h2 {
+        font-size: 1.8em;
+    }
+    .role-button, .register-submit-btn {
+        width: 100%;
+    }
+    .form-box.login, .form-box.register {
+        padding: 15px;
+    }
+}

@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết Sân | Sport Slot</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        /* Thêm CSS cụ thể cho trang chi tiết sân ở đây */
+        /* Đảm bảo HTML và Body chiếm 100% chiều cao và loại bỏ overflow không mong muốn */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('image/background.jpg') no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            position: relative;
+            padding-top: 0; /* Trang chi tiết không cần padding-top từ body */
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 100px;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 99;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 2em;
+            color: #162938;
+            user-select: none;
+        }
+
+        .navigation a {
+            position: relative;
+            font-size: 1.1em;
+            color: #162938;
+            text-decoration: none;
+            font-weight: 500;
+            margin-left: 40px;
+        }
+
+        .navigation a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            width: 100%;
+            height: 3px;
+            background: #162938;
+            border-radius: 5px;
+            transform-origin: right;
+            transform: scaleX(0);
+            transition: transform .5s;
+        }
+
+        .navigation a:hover::after {
+            transform-origin: left;
+            transform: scaleX(1);
+        }
+
+        .navigation .btnLogin-popup {
+            width: 130px;
+            height: 50px;
+            background-color: transparent;
+            border: 2px solid #162938;
+            outline: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.1em;
+            color: #162938;
+            font-weight: 500;
+            margin-left: 40px;
+            transition: .5s;
+        }
+
+        .navigation .btnLogin-popup:hover {
+            background: #162938;
+            color: #fff;
+        }
+
+        /* Styles cho container chính của trang chi tiết */
+        .detail-page-container {
+            width: 100%;
+            max-width: 900px; /* Giới hạn chiều rộng của nội dung */
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            margin: 120px auto 50px; /* Khoảng cách từ trên xuống (header) và dưới lên */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #333;
+            position: relative;
+            z-index: 2; /* Đảm bảo nằm trên nền */
+        }
+
+        .detail-page-header {
+            width: 100%;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .detail-page-header h1 {
+            font-size: 2.8em;
+            color: #162938;
+            margin-bottom: 5px;
+        }
+
+        .detail-page-header p {
+            font-size: 1.1em;
+            color: #666;
+        }
+
+        .detail-image-container {
+            width: 100%;
+            height: 400px; /* Chiều cao cố định cho hình ảnh */
+            margin-bottom: 30px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .detail-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .info-grid {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Hai cột */
+            gap: 20px 40px; /* Khoảng cách hàng và cột */
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .info-item label {
+            font-weight: bold;
+            color: #162938;
+            margin-bottom: 5px;
+            font-size: 1em;
+        }
+
+        .info-item span {
+            color: #555;
+            font-size: 1em;
+        }
+
+        .description-section {
+            width: 100%;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .description-section label {
+            font-weight: bold;
+            color: #162938;
+            margin-bottom: 10px;
+            display: block;
+            font-size: 1.1em;
+        }
+
+        .description-section p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 1.05em;
+        }
+
+        .buttons-container {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end; /* Nút nằm bên phải */
+            gap: 20px;
+        }
+
+        .action-button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .voucher-button {
+            background-color: #007bff; /* Màu xanh dương cho Voucher */
+            color: #fff;
+        }
+
+        .voucher-button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .book-button {
+            background-color: #28a745; /* Màu xanh lá cho Book */
+            color: #fff;
+        }
+
+        .book-button:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            header {
+                padding: 20px 50px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 20px 30px;
+            }
+            .navigation a {
+                margin-left: 20px;
+            }
+            .detail-page-container {
+                padding: 20px;
+                margin-top: 100px;
+            }
+            .detail-page-header h1 {
+                font-size: 2.2em;
+            }
+            .detail-page-header p {
+                font-size: 1em;
+            }
+            .detail-image-container {
+                height: 250px;
+            }
+            .info-grid {
+                grid-template-columns: 1fr; /* Một cột trên màn hình nhỏ */
+                gap: 15px;
+            }
+            .action-button {
+                padding: 10px 20px;
+                font-size: 1em;
+            }
+            .buttons-container {
+                flex-direction: column; /* Nút xếp chồng lên nhau */
+                align-items: center; /* Căn giữa các nút */
+                gap: 15px;
+            }
+            .action-button {
+                width: 80%; /* Nút chiếm 80% chiều rộng */
+            }
+        }
+
+        @media (max-width: 576px) {
+            header {
+                padding: 15px 20px;
+            }
+            .navigation a {
+                margin-left: 15px;
+                font-size: 1em;
+            }
+            .navigation .btnLogin-popup {
+                margin-left: 15px;
+                width: 90px;
+                height: 38px;
+                font-size: 0.8em;
+            }
+            .detail-page-container {
+                width: 95%;
+                padding: 15px;
+            }
+        }
+
+        /* CSS DÀNH RIÊNG CHO MODAL VOUCHER & BOOKING */
+        .modal {
+            display: none; /* Đảm bảo modal ẩn ban đầu */
+            position: fixed; /* Giữ nguyên vị trí khi cuộn */
+            z-index: 1000; /* Hiển thị trên cùng */
+            left: 0;
+            top: 0;
+            width: 100%; /* Chiều rộng đầy đủ */
+            height: 100%; /* Chiều cao đầy đủ */
+            overflow: auto; /* Cho phép cuộn nếu nội dung dài */
+            background-color: rgba(0,0,0,0.4); /* Nền đen mờ */
+            justify-content: center; /* Căn giữa ngang */
+            align-items: center; /* Căn giữa dọc */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+            width: 90%; /* Chiều rộng tương đối */
+            max-width: 600px; /* Chiều rộng tối đa */
+            animation: zoomIn 0.3s ease-out; /* Hiệu ứng zoom khi mở */
+            box-sizing: border-box; /* Bao gồm padding trong width/height */
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-content h3 {
+            font-size: 1.8em;
+            color: #162938;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        /* Voucher specific CSS */
+        .voucher-input-group {
+            display: none; /* Ẩn phần nhập mã voucher */
+        }
+
+        .voucher-message {
+            margin-top: 10px;
+            font-size: 0.95em;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .voucher-message.success {
+            color: #28a745;
+        }
+
+        .voucher-message.error {
+            color: #dc3545;
+        }
+
+        .voucher-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+            max-height: 300px; /* Chiều cao tối đa cho danh sách cuộn */
+            overflow-y: auto; /* Cho phép cuộn dọc */
+            padding-right: 5px; /* Khoảng trống cho thanh cuộn */
+        }
+
+        /* Thanh cuộn tùy chỉnh cho danh sách voucher */
+        .voucher-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .voucher-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .voucher-list::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+
+        .voucher-list::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .voucher-card {
+            background-color: #f0f8ff; /* Nền xanh nhạt */
+            border: 1px dashed #a7d9ff;
+            border-radius: 8px;
+            padding: 15px;
+            flex: 1 1 calc(50% - 15px); /* Hai cột với khoảng cách */
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-width: 250px; /* Chiều rộng tối thiểu của thẻ */
+            cursor: pointer; /* Thêm con trỏ để người dùng biết có thể click */
+            transition: transform 0.2s ease, box-shadow 0.2s ease; /* Hiệu ứng hover */
+        }
+
+        .voucher-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .voucher-card.selected { /* Thêm style khi voucher được chọn */
+            border: 2px solid #007bff;
+            background-color: #e0f0ff;
+        }
+
+        .voucher-card h4 {
+            font-size: 1.2em;
+            color: #162938;
+            margin-bottom: 8px;
+        }
+
+        .voucher-card p {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .voucher-card .voucher-code {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .voucher-card .voucher-status {
+            font-style: italic;
+            font-size: 0.85em;
+            margin-top: 10px;
+            text-align: right;
+            font-weight: 600;
+        }
+
+        .voucher-card.expired {
+            opacity: 0.7;
+            background-color: #f2f2f2;
+            border-color: #ccc;
+            cursor: not-allowed; /* Thay đổi con trỏ để thể hiện không click được */
+            pointer-events: none; /* Vô hiệu hóa sự kiện click */
+        }
+        .voucher-card.expired .voucher-status {
+            color: #dc3545; /* Đỏ cho hết hạn */
+        }
+
+        .voucher-card.used-voucher {
+            opacity: 0.7;
+            background-color: #f2f2f2;
+            border-color: #ccc;
+            cursor: not-allowed; /* Thay đổi con trỏ để thể hiện không click được */
+            pointer-events: none; /* Vô hiệu hóa sự kiện click */
+        }
+        .voucher-card.used-voucher .voucher-status {
+            color: #ff6a00; /* Cam cho đã sử dụng */
+        }
+
+        .voucher-card.active-voucher .voucher-status {
+            color: #28a745; /* Xanh lá cho còn hiệu lực */
+        }
+
+        /* BOOKING MODAL SPECIFIC CSS */
+        #bookingModal .modal-content {
+            max-width: 800px; /* Booking modal có thể rộng hơn */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .booking-layout {
+            display: flex;
+            flex-wrap: wrap; /* Cho phép các cột xuống hàng trên màn hình nhỏ */
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .booking-details-section,
+        .booking-payment-section {
+            flex: 1; /* Mỗi phần chiếm 1 phần bằng nhau */
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+            min-width: 300px; /* Đảm bảo không quá nhỏ trên màn hình vừa */
+            box-sizing: border-box; /* Bao gồm padding trong width */
+        }
+        
+        .booking-details-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .booking-details-section .court-summary {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .booking-details-section .court-summary .img-placeholder {
+            width: 150px;
+            height: 100px;
+            background-color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.9em;
+            color: #666;
+            border-radius: 5px;
+            flex-shrink: 0; /* Ngăn hình ảnh co lại */
+            overflow: hidden;
+        }
+        .booking-details-section .court-summary .img-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .booking-details-section .court-summary .info {
+            flex-grow: 1;
+        }
+
+        .booking-details-section .court-summary .info p {
+            margin: 5px 0;
+            font-size: 0.95em;
+            color: #444;
+        }
+        .booking-details-section .court-summary .info p strong {
+            color: #162938;
+        }
+
+        .booking-details-section .form-group {
+            margin-bottom: 15px;
+        }
+
+        .booking-details-section label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #162938;
+        }
+
+        .booking-details-section input[type="text"],
+        .booking-details-section select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .booking-details-section input[type="text"]:focus,
+        .booking-details-section select:focus {
+            border-color: #007bff;
+        }
+
+        .time-slots {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+            max-height: 150px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .time-slot {
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+            font-size: 0.9em;
+        }
+
+        .time-slot.available:hover {
+            background-color: #e6f7ff;
+            border-color: #007bff;
+        }
+
+        .time-slot.selected {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+
+        .time-slot.booked {
+            background-color: #f2f2f2;
+            color: #888;
+            border-color: #ddd;
+            cursor: not-allowed;
+            text-decoration: line-through;
+        }
+        
+        .booking-payment-section {
+            border-left: 1px solid #eee; /* Đường kẻ phân chia */
+            padding-left: 30px; /* Thêm khoảng cách */
+        }
+        .booking-payment-section h4 {
+            font-size: 1.5em;
+            color: #162938;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .payment-summary p {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+        .payment-summary p strong {
+            color: #162938;
+        }
+        .payment-summary .final-price {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #28a745;
+            border-top: 1px dashed #ccc;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+
+        .payment-methods {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .payment-methods button {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fff;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .payment-methods button:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+        }
+
+        .payment-methods button.momo {
+            color: #ae2070;
+            border-color: #ae2070;
+        }
+        .payment-methods button.momo:hover {
+            background-color: #ae2070;
+            color: #fff;
+        }
+        .payment-methods button.mobile-banking {
+            color: #007bff;
+            border-color: #007bff;
+        }
+        .payment-methods button.mobile-banking:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        /* Responsive for booking modal */
+        @media (max-width: 768px) {
+            #bookingModal .modal-content {
+                max-width: 95%;
+            }
+            .booking-layout {
+                flex-direction: column; /* Xếp chồng các phần lên nhau */
+            }
+            .booking-payment-section {
+                border-left: none; /* Bỏ đường kẻ */
+                border-top: 1px solid #eee; /* Thêm đường kẻ ngang */
+                padding-left: 20px;
+                padding-top: 20px;
+            }
+            .booking-details-section .court-summary {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h2 class="logo">Sport Slot</h2>
+        <nav class="navigation">
+            <a href="index.html" id="home-link">Home</a> 
+            <a href="index.html#available-courts-section" id="courtlist-link">Court List</a> 
+            <a href="#" id="service-link">Service</a>
+            <a href="#" id="contact-link">Contact</a>
+            <button class="btnLogin-popup">Login</button>
+        </nav>
+    </header>
+
+    <div class="detail-page-container">
+        <div class="detail-page-header">
+            <h1 id="detail-court-name"></h1>
+            <p id="detail-court-type"></p> 
+        </div>
+        
+        <div class="detail-image-container">
+            <img id="detail-court-image" src="" alt="Court Image" class="detail-image">
+        </div>
+
+        <div class="info-grid">
+            <div class="info-item">
+                <label>Địa chỉ:</label>
+                <span id="detail-court-location"></span>
+            </div>
+            <div class="info-item">
+                <label>Giá sân:</label>
+                <span id="detail-court-price"></span>
+                <span id="originalPrice" style="display:none; text-decoration: line-through; margin-left: 10px; color: #888; font-size: 0.9em;"></span>
+                <span id="discountLabel" style="display:none; background-color: #ffc107; color: #333; padding: 3px 8px; border-radius: 3px; font-size: 0.7em; margin-left: 10px;"></span>
+            </div>
+            <div class="info-item">
+                <label>Chủ sân:</label>
+                <span id="detail-court-owner"></span>
+            </div>
+            <div class="info-item">
+                <label>Kiểu sân:</label>
+                <span id="detail-specific-type"></span>
+            </div>
+        </div>
+
+        <div class="description-section">
+            <label>Mô tả:</label>
+            <p id="detail-court-description"></p>
+        </div>
+
+        <div class="buttons-container">
+            <button class="action-button voucher-button" id="openVoucherModalBtn">Voucher</button>
+            <button class="action-button book-button" id="openBookingModalBtn">Book</button>
+        </div>
+    </div>
+
+    <div id="voucherModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Voucher của bạn</h3>
+            <div class="voucher-input-group">
+                <input type="text" id="voucherCodeInput" placeholder="Nhập mã voucher...">
+                <button class="apply-voucher-btn" id="applyVoucherBtn">Áp dụng</button>
+            </div>
+            <p class="voucher-message" id="voucherMessage"></p>
+            <div class="voucher-list" id="voucherList">
+            </div>
+        </div>
+    </div>
+
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button booking-close-button">&times;</span>
+            <h3>Đặt Sân</h3>
+            <div class="booking-layout">
+                <div class="booking-details-section">
+                    <div class="court-summary">
+                        <div class="img-placeholder">
+                            <img id="booking-court-image" src="" alt="Court Image">
+                        </div>
+                        <div class="info">
+                            <p>Tên sân: <strong id="booking-court-name"></strong></p>
+                            <p>Loại sân: <strong id="booking-court-type"></strong></p>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bookingDate">Ngày đặt:</label>
+                        <input type="text" id="bookingDate" placeholder="Chọn ngày" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Giờ đặt:</label>
+                        <div class="time-slots" id="timeSlotsContainer">
+                            </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="numberOfHours">Số giờ:</label>
+                        <select id="numberOfHours">
+                            <option value="1">1 giờ</option>
+                            <option value="2">2 giờ</option>
+                            <option value="3">3 giờ</option>
+                            </select>
+                    </div>
+                    
+                    <button class="action-button" id="cancelBookingBtn" style="background-color: #dc3545; color: #fff; margin-top: 20px;">Hủy</button>
+                </div>
+
+                <div class="booking-payment-section">
+                    <h4>Thanh toán</h4>
+                    <div class="payment-summary">
+                        <p>Tổng giá: <span id="totalPrice">0 VNĐ</span></p>
+                        <p>Giảm giá: <span id="discountAmount">0 VNĐ</span></p>
+                        <p class="final-price">Số tiền thanh toán: <span id="finalPaymentAmount">0 VNĐ</span></p>
+                    </div>
+                    <div class="payment-methods">
+                        <button class="momo">MoMo</button>
+                        <button class="mobile-banking">Mobile Banking</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const courtDataString = params.get('court');
+            let currentCourt = null; 
+            let originalPriceNumeric = 0; // Giá gốc của sân mỗi giờ
+            let currentDiscount = 0; // Số tiền giảm giá hiện tại do voucher
+            let selectedVoucherCode = null; // Lưu mã voucher đang được áp dụng
+
+            // Booking related variables
+            let selectedDate = null;
+            let selectedTimeSlot = null; // Store the start time of the selected slot
+            let selectedHours = 1; // Default to 1 hour
+
+            if (courtDataString) {
+                try {
+                    currentCourt = JSON.parse(decodeURIComponent(courtDataString));
+
+                    document.getElementById('detail-court-name').textContent = currentCourt.name;
+                    document.getElementById('detail-court-type').textContent = `Môn thể thao: ${currentCourt.type || 'Không xác định'}`;
+                    document.getElementById('detail-court-image').src = currentCourt.image;
+                    document.getElementById('detail-court-image').alt = currentCourt.name;
+                    document.getElementById('detail-court-location').textContent = currentCourt.location;
+                    document.getElementById('detail-court-description').textContent = currentCourt.description;
+                    document.getElementById('detail-court-owner').textContent = currentCourt.owner || 'Đang cập nhật';
+                    document.getElementById('detail-specific-type').textContent = currentCourt.specificType || 'Không xác định';
+
+                    const priceMatch = currentCourt.price.match(/(\d[\d.]*)/);
+                    if (priceMatch) {
+                        originalPriceNumeric = parseFloat(priceMatch[1].replace(/\./g, ''));
+                        document.getElementById('detail-court-price').textContent = currentCourt.price; 
+                    }
+
+                } catch (e) {
+                    console.error("Error parsing court data:", e);
+                    alert("Không tìm thấy thông tin sân. Vui lòng thử lại.");
+                    window.location.href = 'index.html';
+                }
+            } else {
+                window.location.href = 'index.html';
+            }
+
+            // --- Voucher Modal Logic ---
+            const voucherModal = document.getElementById('voucherModal');
+            const openVoucherModalBtn = document.getElementById('openVoucherModalBtn'); 
+            const closeVoucherButton = document.querySelector('#voucherModal .close-button');
+            const voucherMessage = document.getElementById('voucherMessage');
+            const voucherListContainer = document.getElementById('voucherList');
+            const detailCourtPriceElement = document.getElementById('detail-court-price'); 
+            const originalPriceElement = document.getElementById('originalPrice'); 
+            const discountLabelElement = document.getElementById('discountLabel'); 
+
+            const availableVouchers = [
+                { code: 'SPORT50K', discount: 50000, type: 'fixed', expiry: '2025-12-31', status: 'active', description: 'Giảm 50.000 VNĐ cho bất kỳ đơn hàng nào.' },
+                { code: 'FREECOURT', discount: 100, type: 'percentage', expiry: '2025-07-20', status: 'active', description: 'Giảm 100% (miễn phí) cho lần đặt đầu tiên.' },
+                { code: 'SUMMER20', discount: 20, type: 'percentage', expiry: '2025-08-15', status: 'active', description: 'Giảm 20% cho tất cả các sân.' },
+                { code: 'VIP100K', discount: 100000, type: 'fixed', expiry: '2025-06-30', status: 'expired', description: 'Voucher đặc biệt cho khách hàng VIP (hết hạn).' },
+                { code: 'MAYGIO', discount: 30000, type: 'fixed', expiry: '2025-07-10', status: 'used', description: 'Giảm 30.000 VNĐ (đã sử dụng).' }
+            ];
+
+            function renderVouchers() {
+                voucherListContainer.innerHTML = '';
+                availableVouchers.forEach(voucher => {
+                    const voucherCard = document.createElement('div');
+                    voucherCard.classList.add('voucher-card');
+                    
+                    const expiryDate = new Date(voucher.expiry);
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0); 
+
+                    let statusText = '';
+                    let statusClass = '';
+                    let isClickable = true; 
+
+                    if (voucher.status === 'used') { 
+                        statusText = 'Đã sử dụng';
+                        statusClass = 'used-voucher'; 
+                        isClickable = false;
+                    } else if (expiryDate < today) {
+                        statusText = 'Hết hạn';
+                        statusClass = 'expired';
+                        isClickable = false;
+                    } else {
+                        statusText = 'Còn hiệu lực';
+                        statusClass = 'active-voucher';
+                    }
+                    
+                    voucherCard.classList.add(statusClass); 
+                    if (voucher.code === selectedVoucherCode) {
+                        voucherCard.classList.add('selected');
+                    }
+
+                    voucherCard.innerHTML = `
+                        <h4>${voucher.code}</h4>
+                        <p>${voucher.description}</p>
+                        <p>Hạn sử dụng: ${new Date(voucher.expiry).toLocaleDateString('vi-VN')}</p>
+                        <p class="voucher-status ${statusClass}">${statusText}</p>
+                    `;
+                    
+                    if (isClickable) {
+                        voucherCard.addEventListener('click', () => {
+                            applyVoucher(voucher.code); 
+                        });
+                    }
+
+                    voucherListContainer.appendChild(voucherCard);
+                });
+            }
+
+            function applyVoucher(enteredCode) { 
+                voucherMessage.textContent = '';
+                voucherMessage.classList.remove('success', 'error');
+
+                const voucher = availableVouchers.find(v => v.code === enteredCode);
+
+                if (!voucher) {
+                    voucherMessage.textContent = 'Mã voucher không hợp lệ.';
+                    voucherMessage.classList.add('error');
+                    resetPriceDisplay();
+                    selectedVoucherCode = null;
+                    return;
+                }
+
+                const expiryDate = new Date(voucher.expiry);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                if (expiryDate < today) {
+                    voucherMessage.textContent = 'Mã voucher đã hết hạn.';
+                    voucherMessage.classList.add('error');
+                    resetPriceDisplay();
+                    selectedVoucherCode = null;
+                    return;
+                }
+
+                if (voucher.status === 'used') {
+                    voucherMessage.textContent = 'Mã voucher này đã được sử dụng.';
+                    voucherMessage.classList.add('error');
+                    resetPriceDisplay();
+                    selectedVoucherCode = null;
+                    return;
+                }
+
+                let finalDiscountAmount = 0;
+                let discountText = '';
+
+                if (voucher.type === 'fixed') {
+                    finalDiscountAmount = voucher.discount;
+                    discountText = `Giảm ${finalDiscountAmount.toLocaleString('vi-VN')} VNĐ`;
+                } else if (voucher.type === 'percentage') {
+                    finalDiscountAmount = (originalPriceNumeric * voucher.discount) / 100;
+                    discountText = `Giảm ${voucher.discount}%`;
+                }
+                
+                currentDiscount = finalDiscountAmount; // Lưu số tiền giảm giá
+                selectedVoucherCode = voucher.code; // Lưu mã voucher đã chọn
+                updatePriceDisplay(); // Cập nhật hiển thị giá
+
+                voucherMessage.textContent = `Đã áp dụng voucher: ${voucher.code}!`;
+                voucherMessage.classList.add('success');
+                renderVouchers(); // Render lại để cập nhật trạng thái selected
+
+                // Tự động đóng modal sau khi áp dụng voucher thành công
+                setTimeout(() => {
+                    voucherModal.style.display = 'none';
+                }, 1000); // Ẩn sau 1 giây
+            }
+
+            function updatePriceDisplay() {
+                let currentTotalBookingPrice = originalPriceNumeric * selectedHours; // Tổng giá booking ban đầu
+                let finalPriceAfterDiscount = Math.max(0, currentTotalBookingPrice - currentDiscount);
+
+                detailCourtPriceElement.textContent = `${currentTotalBookingPrice.toLocaleString('vi-VN')} VNĐ/giờ`;
+                originalPriceElement.textContent = `${originalPriceNumeric.toLocaleString('vi-VN')} VNĐ/giờ`; // Giữ nguyên giá mỗi giờ cho originalPrice
+                originalPriceElement.style.display = currentDiscount > 0 ? 'inline' : 'none';
+                discountLabelElement.textContent = `-${currentDiscount.toLocaleString('vi-VN')} VNĐ`;
+                discountLabelElement.style.display = currentDiscount > 0 ? 'inline' : 'none';
+
+                // Cập nhật giá trong Booking Modal
+                document.getElementById('totalPrice').textContent = `${currentTotalBookingPrice.toLocaleString('vi-VN')} VNĐ`;
+                document.getElementById('discountAmount').textContent = `${currentDiscount.toLocaleString('vi-VN')} VNĐ`;
+                document.getElementById('finalPaymentAmount').textContent = `${finalPriceAfterDiscount.toLocaleString('vi-VN')} VNĐ`;
+            }
+
+            function resetPriceDisplay() {
+                if (currentCourt) {
+                    detailCourtPriceElement.textContent = currentCourt.price;
+                }
+                originalPriceElement.style.display = 'none';
+                discountLabelElement.style.display = 'none';
+                currentDiscount = 0; // Reset giảm giá
+                selectedVoucherCode = null; // Reset mã voucher
+                document.querySelectorAll('.voucher-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
+                updatePriceDisplay(); // Cập nhật lại giá trong booking modal (sẽ về 0 VNĐ)
+            }
+
+            openVoucherModalBtn.addEventListener('click', () => {
+                voucherModal.style.display = 'flex'; 
+                renderVouchers(); 
+                voucherMessage.textContent = ''; 
+                // Không cần reset giá ở đây, vì giá được cập nhật ngay khi áp dụng voucher
+            });
+
+            closeVoucherButton.addEventListener('click', () => {
+                voucherModal.style.display = 'none'; 
+            });
+
+            window.addEventListener('click', (event) => {
+                if (event.target == voucherModal) {
+                    voucherModal.style.display = 'none';
+                }
+            });
+
+            // --- Booking Modal Logic ---
+            const bookingModal = document.getElementById('bookingModal');
+            const openBookingModalBtn = document.getElementById('openBookingModalBtn');
+            const closeBookingButton = document.querySelector('#bookingModal .booking-close-button');
+            const cancelBookingBtn = document.getElementById('cancelBookingBtn');
+            const bookingCourtName = document.getElementById('booking-court-name');
+            const bookingCourtType = document.getElementById('booking-court-type');
+            const bookingCourtImage = document.getElementById('booking-court-image');
+            const bookingDateInput = document.getElementById('bookingDate');
+            const timeSlotsContainer = document.getElementById('timeSlotsContainer');
+            const numberOfHoursSelect = document.getElementById('numberOfHours');
+
+            // Initialize Flatpickr
+            flatpickr(bookingDateInput, {
+                minDate: "today",
+                dateFormat: "d/m/Y",
+                locale: "vn", // Nếu bạn có file locale cho tiếng Việt
+                onChange: function(selectedDates, dateStr, instance) {
+                    selectedDate = selectedDates[0];
+                    selectedTimeSlot = null; // Reset selected time slot when date changes
+                    generateTimeSlots();
+                    updatePriceDisplay(); // Cập nhật lại giá khi ngày thay đổi
+                }
+            });
+
+            // Sample available time slots (in a real app, this would come from a backend based on date)
+            const ALL_TIME_SLOTS = [
+                "08:00", "09:00", "10:00", "11:00", "12:00",
+                "13:00", "14:00", "15:00", "16:00", "17:00",
+                "18:00", "19:00", "20:00", "21:00"
+            ];
+            const BOOKED_SLOTS_EXAMPLE = { // Example: Some slots are booked for specific dates
+                "15/07/2025": ["10:00", "18:00"],
+                "16/07/2025": ["09:00", "14:00", "20:00"]
+            };
+
+            function generateTimeSlots() {
+                timeSlotsContainer.innerHTML = '';
+                if (!selectedDate) return;
+
+                const dateString = flatpickr.formatDate(selectedDate, "d/m/Y");
+                const bookedForThisDate = BOOKED_SLOTS_EXAMPLE[dateString] || [];
+                const now = new Date();
+                const todayString = flatpickr.formatDate(now, "d/m/Y");
+
+                ALL_TIME_SLOTS.forEach(slot => {
+                    const slotDiv = document.createElement('div');
+                    slotDiv.classList.add('time-slot');
+                    slotDiv.textContent = slot;
+
+                    let isBooked = bookedForThisDate.includes(slot);
+                    let isPast = false;
+                    
+                    if (dateString === todayString) {
+                        const [hour, minute] = slot.split(':').map(Number);
+                        const slotTime = new Date();
+                        slotTime.setHours(hour, minute, 0, 0);
+                        if (slotTime <= now) {
+                            isPast = true;
+                        }
+                    }
+
+                    if (isBooked || isPast) {
+                        slotDiv.classList.add('booked');
+                    } else {
+                        slotDiv.classList.add('available');
+                        slotDiv.addEventListener('click', () => {
+                            // Remove 'selected' from all other slots
+                            document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+                            // Add 'selected' to the clicked slot
+                            slotDiv.classList.add('selected');
+                            selectedTimeSlot = slot;
+                            updatePriceDisplay();
+                        });
+                    }
+                    timeSlotsContainer.appendChild(slotDiv);
+                });
+            }
+
+            function updateBookingDetails() {
+                if (currentCourt) {
+                    bookingCourtName.textContent = currentCourt.name;
+                    bookingCourtType.textContent = currentCourt.specificType || currentCourt.type || 'Không xác định';
+                    bookingCourtImage.src = currentCourt.image;
+                    bookingCourtImage.alt = currentCourt.name;
+                }
+                
+                updatePriceDisplay(); // Cập nhật tổng giá và giá cuối cùng
+            }
+
+            openBookingModalBtn.addEventListener('click', () => {
+                bookingModal.style.display = 'flex';
+                // Reset các lựa chọn khi mở modal
+                selectedDate = null;
+                bookingDateInput._flatpickr.clear(); // Xóa ngày đã chọn trong flatpickr
+                selectedTimeSlot = null;
+                selectedHours = 1;
+                numberOfHoursSelect.value = 1;
+                timeSlotsContainer.innerHTML = ''; // Clear time slots
+
+                updateBookingDetails();
+            });
+
+            closeBookingButton.addEventListener('click', () => {
+                bookingModal.style.display = 'none';
+            });
+
+            cancelBookingBtn.addEventListener('click', () => {
+                bookingModal.style.display = 'none';
+            });
+
+            window.addEventListener('click', (event) => {
+                if (event.target == bookingModal) {
+                    bookingModal.style.display = 'none';
+                }
+            });
+
+            numberOfHoursSelect.addEventListener('change', (event) => {
+                selectedHours = parseInt(event.target.value);
+                updatePriceDisplay();
+            });
+
+            // Xử lý các nút thanh toán (ví dụ: in ra console)
+            document.querySelector('#bookingModal .momo').addEventListener('click', () => {
+                if (selectedDate && selectedTimeSlot) {
+                    alert(`Thanh toán qua MoMo cho sân ${currentCourt.name} vào ngày ${flatpickr.formatDate(selectedDate, "d/m/Y")} lúc ${selectedTimeSlot} trong ${selectedHours} giờ. Tổng tiền: ${document.getElementById('finalPaymentAmount').textContent}`);
+                    // Thực hiện logic thanh toán MoMo thực tế ở đây
+                } else {
+                    alert('Vui lòng chọn ngày và giờ đặt sân!');
+                }
+            });
+
+            document.querySelector('#bookingModal .mobile-banking').addEventListener('click', () => {
+                if (selectedDate && selectedTimeSlot) {
+                    alert(`Thanh toán qua Mobile Banking cho sân ${currentCourt.name} vào ngày ${flatpickr.formatDate(selectedDate, "d/m/Y")} lúc ${selectedTimeSlot} trong ${selectedHours} giờ. Tổng tiền: ${document.getElementById('finalPaymentAmount').textContent}`);
+                    // Thực hiện logic thanh toán Mobile Banking thực tế ở đây
+                } else {
+                    alert('Vui lòng chọn ngày và giờ đặt sân!');
+                }
+            });
+
+
+            // Xử lý nút quay lại trang chủ/court list trong header
+            document.getElementById('home-link').addEventListener('click', (e) => {
+                e.preventDefault();
+                window.location.href = 'index.html';
+            });
+            document.getElementById('courtlist-link').addEventListener('click', (e) => {
+                e.preventDefault();
+                window.location.href = 'index.html#available-courts-section'; 
+            });
+
+            // Xử lý nút Login Popup (nếu bạn muốn nó hoạt động trên trang này)
+            const btnLoginPopup = document.querySelector('.btnLogin-popup');
+            if (btnLoginPopup) {
+                btnLoginPopup.addEventListener('click', () => {
+                    window.location.href = 'index.html?showLogin=true'; 
+                });
+            }
+        });
+    </script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

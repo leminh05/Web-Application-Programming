@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Quan ly sinh vien</title>
+    <link rel="stylesheet" href="static\style.css">
+</head>
+<body>
+    
+    <h1>DANH DACH SINH VIEN</h1>
+    <a href="/add">Them Sinh Vien</a>
+    <hr>
+    <ol>
+        {% for s in students %}
+        <li class="student-item">
+            <span class="student-info">
+                {{ loop.index }}. {{ s.name }}- {{ s.age }} tuoi- {{ s.major }}
+            </span>
+            <div class="actions">
+                <a href="/edit/{{ s._id }}"><button class="edit-btn">Sua</button></a>
+                <a href="/delete/{{ s._id }}"><button class="delete-btn">Xoa</button></a>
+            </div>
+        </li>{% endfor %}
+    </ol>
+</body>
+</html>
